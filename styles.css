@@ -2110,7 +2110,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .faq__inner > *:first-child { order: 2; }
   .faq__inner > *:last-child { order: 1; }
 
-  /* Reviews filter tabs — desktop segmented control with side-fade peek */
+  /* Reviews filter tabs — desktop segmented control, scrollable */
   .reviews__tabs {
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -2120,11 +2120,6 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     position: relative;
-    /* Mask both edges so peek content fades softly into the container's
-       white background — eliminates the hard "cut-off" look at the right
-       edge while signaling "more content to swipe" professionally. */
-    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 28px), transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 28px), transparent 100%);
   }
   .reviews__tabs::-webkit-scrollbar { display: none; }
   .reviews__tab {
