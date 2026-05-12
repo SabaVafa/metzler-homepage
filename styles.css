@@ -2232,13 +2232,12 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     overflow-x: auto;
     overflow-y: hidden;
     gap: 12px;
-    padding: 0 var(--sp-5);
-    /* Negative margin trick — pulls scroll edge to the viewport edge
-       while the container itself stays inside the page padding,
-       so the first card flushes to the safe-zone and the rail can
-       extend past it visually. */
+    /* Inherit .container's inline padding so the first badge's left
+       edge aligns exactly with the left edge of content in sections
+       above and below. */
+    padding-block: 0;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--sp-5);
+    scroll-padding-inline: clamp(var(--sp-6), 4vw, 56px);
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;   /* Firefox */
     grid-template-columns: none;
