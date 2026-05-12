@@ -288,6 +288,10 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   justify-content: space-between;
   align-items: stretch;
 }
+/* Mobile-only search icon — hidden on desktop */
+.header__search-icon {
+  display: none;
+}
 .header__burger span {
   display: block;
   height: 2px;
@@ -472,6 +476,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 @media (min-width: 1024px) {
   /* Mobile-only chrome is forced hidden on desktop */
   .header__burger,
+  .header__search-icon,
   .mobile-bar,
   .mobile-nav { display: none !important; }
 
