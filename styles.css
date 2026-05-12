@@ -454,7 +454,12 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 
   /* Icons row has no internal gap so cart sits flush against profile,
      matching the burger-to-search adjacency */
-  .header__icons { gap: 0 !important; margin-right: 0 !important; }
+  .header__icons { gap: 0 !important; margin-right: -13px !important; }
+
+  /* Pull burger left by the button's invisible inner padding so the
+     visible glyph aligns with section content edge instead of being
+     inset by 13px relative to the container padding line */
+  .header__burger { margin-left: -13px !important; }
 
   /* Logo */
   .header__logo img { height: 30px; }
