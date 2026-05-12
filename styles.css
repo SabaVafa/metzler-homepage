@@ -397,6 +397,68 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .header__nav { display: none; }
   .mobile-bar { display: flex; }
   body { padding-bottom: 68px; }
+
+  /* MOBILE HEADER POLISH */
+  /* Sticky header so scroll-collapse stays visible */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    background: var(--white);
+    transition: box-shadow 0.2s ease;
+  }
+  .header.is-compact { box-shadow: 0 1px 8px rgba(0,0,0,0.06); }
+
+  /* Hamburger sized like icon-btn, symmetric left padding */
+  .header__burger {
+    width: 52px;
+    height: 52px;
+    padding: 14px;
+    margin-left: -12px;
+  }
+  .header__burger span { height: 1.5px; }
+
+  /* Inline search-icon button — appears next to burger when scrolled */
+  .header__search-icon {
+    display: none;
+    width: 52px;
+    height: 52px;
+    padding: 14px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    color: var(--schwarz);
+  }
+  .header__search-icon svg { width: 100%; height: 100%; }
+  .header.is-compact .header__search-icon { display: inline-flex; align-items: center; justify-content: center; }
+  .header.is-compact .header__search {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    pointer-events: none;
+  }
+  .header__search {
+    transition: max-height 0.3s ease, opacity 0.2s ease;
+    max-height: 80px;
+    opacity: 1;
+  }
+  /* Icons sit tighter together */
+  .header__icons { gap: 0; }
+  /* Search bar: shorter placeholder + better vertical alignment */
+  .header__search input {
+    height: 44px;
+    padding: 0 16px 0 40px;
+    font-size: 14px;
+  }
+  .header__search svg {
+    width: 16px;
+    height: 16px;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
 
 /* ============================================================
