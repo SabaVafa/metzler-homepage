@@ -2255,8 +2255,8 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     gap: 10px;
   }
 
-  /* Hide the inter-card vertical separator — items are free-scrolling */
-  .trust + .trust::before { display: none; }
+  /* Re-center the desktop hairline divider inside the carousel gap */
+  .trust + .trust::before { left: -6px; height: 40px; }
 
   /* Preserve desktop tile interface — just scale it down for mobile */
   .trust__icon {
