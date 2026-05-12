@@ -476,7 +476,8 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .header__burger,
   .header__search-icon { margin-left: 0 !important; }
 
-  /* Logo */
+  /* Logo — center-aligned in its grid column */
+  .header__logo { justify-self: center; }
   .header__logo img { height: 30px; }
 }
 
