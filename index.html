@@ -683,26 +683,13 @@
     mq.addEventListener('change', setPlaceholder);
   })();
 
-  // Mobile: collapse search bar on scroll down, show search icon next to burger
+  // Search icon click — placeholder (search overlay/modal can be wired later)
   (function(){
-    var header = document.querySelector('.header');
-    var searchInput = document.querySelector('.header__search input');
     var searchIcon = document.getElementById('searchIcon');
-    if (!header || !searchInput || !searchIcon) return;
-    var mq = window.matchMedia('(max-width: 720px)');
-    var threshold = 120;
-    function onScroll() {
-      if (!mq.matches) { header.classList.remove('is-compact'); return; }
-      if (window.scrollY > threshold) header.classList.add('is-compact');
-      else header.classList.remove('is-compact');
-    }
+    if (!searchIcon) return;
     searchIcon.addEventListener('click', function(){
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      setTimeout(function(){ searchInput.focus(); }, 350);
+      // TODO: open search overlay / modal
     });
-    window.addEventListener('scroll', onScroll, { passive: true });
-    mq.addEventListener('change', onScroll);
-    onScroll();
   })();
 </script>
 
