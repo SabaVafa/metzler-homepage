@@ -2251,31 +2251,20 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     min-width: 150px;
     max-width: 200px;
     scroll-snap-align: center;
-    padding: 14px 12px;
-    background: linear-gradient(180deg, #ffffff 0%, #f7f8fb 100%);
-    border-radius: 14px;
-    box-shadow:
-      inset 0 0 0 1px rgba(218, 218, 218, 0.55),
-      0 1px 2px rgba(26, 23, 27, 0.04),
-      0 8px 20px rgba(26, 23, 27, 0.06);
-    align-items: center;
-    text-align: center;
-    gap: 8px;
+    padding: 0;
+    gap: 10px;
   }
 
-  /* Hide the inter-card vertical separator from desktop layout */
+  /* Hide the inter-card vertical separator — items are free-scrolling */
   .trust + .trust::before { display: none; }
 
-  /* The icon tile loses its own background — the parent .trust IS the card now */
+  /* Preserve desktop tile interface — just scale it down for mobile */
   .trust__icon {
-    width: 56px;
-    height: 56px;
-    padding: 4px;
-    background: none;
-    border-radius: 0;
-    box-shadow: none;
+    width: 60px;
+    height: 60px;
+    padding: 8px;
+    border-radius: 14px;
   }
-  .trust__icon img { filter: none; }
 
   /* Tighten typography for the carousel cards */
   .trust__title {
