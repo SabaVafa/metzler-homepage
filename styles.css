@@ -460,10 +460,13 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
      matching the burger-to-search adjacency */
   .header__icons { gap: 0 !important; margin-right: -13px !important; }
 
-  /* Pull burger left by the button's invisible inner padding so the
-     visible glyph aligns with section content edge instead of being
-     inset by 13px relative to the container padding line */
-  .header__burger { margin-left: -13px !important; }
+  /* Negative left margin on BOTH burger and search-icon:
+     - Burger glyph aligns with section content edge
+     - Search-icon overlaps into burger's grid column by 13px so the
+       two buttons sit flush against each other (button gap = 0)
+     - Result: visible glyph gap (26px) matches profile→cart pair */
+  .header__burger,
+  .header__search-icon { margin-left: -13px !important; }
 
   /* Logo */
   .header__logo img { height: 30px; }
