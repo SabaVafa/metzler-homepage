@@ -411,49 +411,53 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     z-index: 90;
     background: var(--white);
   }
-  /* Lock 4-col grid: burger | search | logo | icons */
+  /* Lock 4-col grid: burger | search | logo | icons — zero gap so all
+     four buttons share identical spacing rhythm */
   .header__main {
-    grid-template-columns: 52px 52px 1fr auto !important;
-    gap: 4px !important;
+    grid-template-columns: 48px 48px 1fr auto !important;
+    gap: 0 !important;
     height: 64px !important;
     padding-block: 0 !important;
   }
   /* Search bar hidden — replaced by icon button */
   .header__search { display: none !important; }
-  /* Unified header buttons — all 52x52, 24x24 glyphs, pill */
+
+  /* Unified header buttons — burger, search, profile, cart all
+     render identically: 48x48 frame, 22x22 glyph, pill radius */
   .header__burger,
-  .header__search-icon {
-    display: inline-flex !important;
-    width: 52px;
-    height: 52px;
+  .header__search-icon,
+  .icon-btn {
+    width: 48px !important;
+    height: 48px !important;
     padding: 0;
     background: transparent;
     border: 0;
     border-radius: var(--r-pill);
     color: var(--schwarz);
     cursor: pointer;
+    display: inline-flex !important;
     align-items: center;
     justify-content: center;
     margin: 0;
   }
-  .header__burger {
-    flex-direction: column;
-    gap: 5px;
-    padding: 0 14px;
-  }
+  .header__burger { flex-direction: column; gap: 5px; }
   .header__burger span {
     display: block;
-    width: 100%;
-    height: 1.5px;
+    width: 22px;
+    height: 2px;
     background: var(--schwarz);
     border-radius: 1px;
   }
-  .header__search-icon svg { width: 24px; height: 24px; }
-  .icon-btn { width: 52px; height: 52px; }
-  .icon-btn svg, .icon-btn img { width: 24px; height: 24px; }
-  .header__icons { gap: 0; margin-right: 0; }
-  /* Logo size fits within the 1fr column without crowding */
-  .header__logo img { height: 32px; }
+  .header__search-icon svg,
+  .icon-btn svg,
+  .icon-btn img { width: 22px !important; height: 22px !important; }
+
+  /* Icons row has no internal gap so cart sits flush against profile,
+     matching the burger-to-search adjacency */
+  .header__icons { gap: 0 !important; margin-right: 0 !important; }
+
+  /* Logo */
+  .header__logo img { height: 30px; }
 }
 
 /* ============================================================
