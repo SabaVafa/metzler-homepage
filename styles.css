@@ -2110,30 +2110,27 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .faq__inner > *:first-child { order: 2; }
   .faq__inner > *:last-child { order: 1; }
 
-  /* Reviews filter tabs — desktop segmented control, scrollable */
+  /* Reviews filter tabs — desktop segmented control, scrollable with peek */
   .reviews__tabs {
     flex-wrap: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: 12px;
+    scroll-padding-inline: 8px;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     position: relative;
+    /* Reserve a visible "peek window" on the right so the next tab
+       always shows beyond the second one. */
+    padding-right: 22%;
   }
   .reviews__tabs::-webkit-scrollbar { display: none; }
   .reviews__tab {
     flex: 0 0 auto;
     scroll-snap-align: start;
-    padding: 10px 16px;
+    padding: 10px 14px;
     font-size: 13px;
     gap: 8px;
-  }
-  /* Right-edge breathing buffer — invisible spacer ensures the last tab
-     never touches the mask edge */
-  .reviews__tabs::after {
-    content: "";
-    flex: 0 0 12px;
   }
   .reviews__tab-logo { width: 16px; height: 16px; }
   .reviews__tab-count { font-size: 11px; }
