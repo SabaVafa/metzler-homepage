@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__7295b9be-ef67-48b4-919b-0b09b3ec7147__get_design_context",
+      "Bash(python -c ' *)",
+      "mcp__7295b9be-ef67-48b4-919b-0b09b3ec7147__get_screenshot",
+      "mcp__7295b9be-ef67-48b4-919b-0b09b3ec7147__get_metadata",
+      "WebFetch(domain:metzlerdesignsystem.netlify.app)",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "mcp__Claude_in_Chrome__browser_batch",
+      "mcp__Claude_in_Chrome__navigate",
+      "PowerShell($f = 'C:\\\\Users\\\\s.vafakhah\\\\.claude\\\\projects\\\\C--Users-s-vafakhah-Desktop-Home\\\\c72dc152-c002-46ac-b620-4fded184ba45\\\\tool-results\\\\mcp-7295b9be-ef67-48b4-919b-0b09b3ec7147-get_metadata-1777557696176.txt'; $j = Get-Content $f -Raw | ConvertFrom-Json; Write-Output \\(\"count=\" + $j.Count\\); Write-Output \\(\"len0=\" + $j[0].text.Length\\); Write-Output $j[0].text.Substring\\(0,500\\))",
+      "PowerShell($f = 'C:\\\\Users\\\\s.vafakhah\\\\.claude\\\\projects\\\\C--Users-s-vafakhah-Desktop-Home\\\\c72dc152-c002-46ac-b620-4fded184ba45\\\\tool-results\\\\mcp-7295b9be-ef67-48b4-919b-0b09b3ec7147-get_metadata-1777557696176.txt'; $j = Get-Content $f -Raw | ConvertFrom-Json; $t = $j[0].text + $j[1].text; $lines = $t -split \"`n\"; $keys = 'Briefkast','Türklingel','Sprechanlage','Paketbox','Mülltonnen','Hausnummer','Außenleucht','Funkklingel','Schild','Schriftzug','Hochbeet'; foreach \\($l in $lines\\) { foreach \\($k in $keys\\) { if \\($l -match $k\\) { Write-Output $l.Trim\\(\\); break } } })",
+      "PowerShell($f = 'C:\\\\Users\\\\s.vafakhah\\\\.claude\\\\projects\\\\C--Users-s-vafakhah-Desktop-Home\\\\c72dc152-c002-46ac-b620-4fded184ba45\\\\tool-results\\\\mcp-7295b9be-ef67-48b4-919b-0b09b3ec7147-get_metadata-1777557696176.txt'; $j = Get-Content $f -Raw | ConvertFrom-Json; $t = $j[0].text + $j[1].text; $lines = $t -split \"`n\"; $lines[0..200] | ForEach-Object { $_.TrimEnd\\(\\) })",
+      "WebFetch(domain:edelstahl-tuerklingel.de)",
+      "mcp__Claude_in_Chrome__get_page_text",
+      "WebSearch",
+      "Bash(git init *)",
+      "Bash(git add *)"
+    ]
+  }
+}
