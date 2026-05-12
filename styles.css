@@ -292,6 +292,9 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 .header__search-icon {
   display: none;
 }
+/* Mobile-only left-actions wrapper — display: contents on desktop so
+   the burger/search children (both display:none) don't add a grid slot */
+.header__left-actions { display: contents; }
 .header__burger span {
   display: block;
   height: 2px;
@@ -415,13 +418,21 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     z-index: 90;
     background: var(--white);
   }
-  /* Lock 4-col grid: burger | search | logo | icons — zero gap so all
-     four buttons share identical spacing rhythm */
+  /* 3-col grid: [burger+search group] | logo | [profile+cart group]
+     Both side groups are flex containers with identical structure,
+     guaranteeing pixel-perfect mirroring across the header. */
   .header__main {
-    grid-template-columns: 48px 48px 1fr auto !important;
+    grid-template-columns: auto 1fr auto !important;
     gap: 0 !important;
     height: 64px !important;
     padding-block: 0 !important;
+  }
+  /* Left-actions flex container mirrors .header__icons exactly */
+  .header__left-actions {
+    display: flex;
+    gap: 0;
+    justify-self: start;
+    margin-left: -13px;
   }
   /* Search bar hidden — replaced by icon button */
   .header__search { display: none !important; }
@@ -460,13 +471,10 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
      matching the burger-to-search adjacency */
   .header__icons { gap: 0 !important; margin-right: -13px !important; }
 
-  /* Negative left margin on BOTH burger and search-icon:
-     - Burger glyph aligns with section content edge
-     - Search-icon overlaps into burger's grid column by 13px so the
-       two buttons sit flush against each other (button gap = 0)
-     - Result: visible glyph gap (26px) matches profile→cart pair */
+  /* Individual button margins reset — spacing handled by parent
+     .header__left-actions flex container, mirroring .header__icons */
   .header__burger,
-  .header__search-icon { margin-left: -13px !important; }
+  .header__search-icon { margin-left: 0 !important; }
 
   /* Logo */
   .header__logo img { height: 30px; }
