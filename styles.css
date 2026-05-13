@@ -2326,12 +2326,23 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .cat-card--c11 { grid-column: 2; grid-row: 7; aspect-ratio: 1.36; }
   .cat-card--c6  { grid-column: 2; grid-row: 8; aspect-ratio: 1; }
 
-  /* Cover the picture wrapper too — <picture> contains the <img> on mobile */
-  .cat-card picture,
-  .cat-card img {
+  /* Aspect-ratio on .cat-card controls tile height — keep grid from
+     stretching it. */
+  .cat-card { align-self: start; }
+
+  /* Cover the picture wrapper too — match the absolute-positioned <img>
+     so the wrapper doesn't push grid heights and the img fills the
+     card cleanly. */
+  .cat-card picture {
+    position: absolute;
+    inset: 0;
+    display: block;
+  }
+  .cat-card picture img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
-    display: block;
     object-fit: cover;
     object-position: center;
   }
