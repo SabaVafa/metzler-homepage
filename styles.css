@@ -455,15 +455,8 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     justify-content: center;
     margin: 0;
   }
-  .header__burger { flex-direction: column; gap: 5px; }
-  .header__burger span {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: var(--schwarz);
-    border-radius: 1px;
-  }
-  .header__search-icon svg,
+  .header__burger svg { width: 22px !important; height: 18px !important; color: var(--schwarz); }
+  .header__search-icon svg { width: 20px !important; height: 21px !important; color: var(--schwarz); }
   .icon-btn svg,
   .icon-btn img { width: 22px !important; height: 22px !important; }
 
