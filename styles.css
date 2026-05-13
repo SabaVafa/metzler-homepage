@@ -2232,12 +2232,13 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     overflow-x: auto;
     overflow-y: hidden;
     gap: 12px;
-    /* Inherit .container's inline padding so the first badge's left
-       edge aligns exactly with the left edge of content in sections
-       above and below. */
+    /* Override .container's inline padding so the centered card itself
+       is the only padding source — left and right of the first badge
+       end up visually equal. */
     padding-block: 0;
+    padding-inline: 0;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: clamp(var(--sp-6), 4vw, 56px);
+    scroll-padding-inline: 0;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;   /* Firefox */
     grid-template-columns: none;
