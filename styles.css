@@ -690,7 +690,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     transparent 100%);
 }
 .trustbar::before { top: 0; }
-.trustbar::after  { bottom: 0; }
+.trustbar::after  { display: none; }
 
 .trustbar__inner {
   display: grid;
