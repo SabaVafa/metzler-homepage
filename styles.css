@@ -674,10 +674,10 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   padding-block: var(--sp-8);
   position: relative;
 }
-.trustbar::before,
-.trustbar::after {
+.trustbar::before {
   content: "";
   position: absolute;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 96%;
@@ -689,8 +689,6 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     var(--graphite-300) 88%,
     transparent 100%);
 }
-.trustbar::before { top: 0; }
-.trustbar::after  { display: none; }
 
 .trustbar__inner {
   display: grid;
