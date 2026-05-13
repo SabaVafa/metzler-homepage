@@ -2298,7 +2298,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .cats__grid {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: none;
-    grid-auto-rows: 50px;
+    grid-auto-rows: 20px;
     gap: 10px;
   }
   .cat-card--c1, .cat-card--c2, .cat-card--c3,
@@ -2309,23 +2309,23 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   }
 
   /* Heroes — full width */
-  .cat-card--c2 { grid-column: 1 / -1; grid-row: 1 / span 4; }   /* Sprechanlagen */
-  .cat-card--c5 { grid-column: 1 / -1; grid-row: 5 / span 4; }   /* Briefkästen   */
-  .cat-card--c8 { grid-column: 1 / -1; grid-row: 15 / span 5; }  /* Außenleuchten */
+  .cat-card--c2 { grid-column: 1 / -1; grid-row: 1  / span 7;  } /* Sprechanlagen */
+  .cat-card--c5 { grid-column: 1 / -1; grid-row: 8  / span 7;  } /* Briefkästen   */
+  .cat-card--c8 { grid-column: 1 / -1; grid-row: 26 / span 10; } /* Außenleuchten */
 
   /* Müll + Paket(tall) + Hoch */
-  .cat-card--c1 { grid-column: 1; grid-row: 9  / span 3; }       /* Mülltonnen    */
-  .cat-card--c4 { grid-column: 2; grid-row: 9  / span 6; }       /* Paketboxen    */
-  .cat-card--c3 { grid-column: 1; grid-row: 12 / span 3; }       /* Hochbeete     */
+  .cat-card--c1 { grid-column: 1; grid-row: 15 / span 5;  }      /* Mülltonnen    */
+  .cat-card--c4 { grid-column: 2; grid-row: 15 / span 11; }      /* Paketboxen    */
+  .cat-card--c3 { grid-column: 1; grid-row: 20 / span 6;  }      /* Hochbeete     */
 
   /* Funk + Schild */
-  .cat-card--c9  { grid-column: 1; grid-row: 20 / span 2; }      /* Funkklingeln  */
-  .cat-card--c10 { grid-column: 2; grid-row: 20 / span 2; }      /* Briefk.schild */
+  .cat-card--c9  { grid-column: 1; grid-row: 36 / span 4; }      /* Funkklingeln  */
+  .cat-card--c10 { grid-column: 2; grid-row: 36 / span 4; }      /* Briefk.schild */
 
   /* Haus(tall) + Schriftzug + Türklingel */
-  .cat-card--c7  { grid-column: 1; grid-row: 22 / span 5; }      /* Hausnummern   */
-  .cat-card--c11 { grid-column: 2; grid-row: 22 / span 2; }      /* Schriftzüge   */
-  .cat-card--c6  { grid-column: 2; grid-row: 24 / span 3; }      /* Türklingeln   */
+  .cat-card--c7  { grid-column: 1; grid-row: 40 / span 10; }     /* Hausnummern   */
+  .cat-card--c11 { grid-column: 2; grid-row: 40 / span 4;  }     /* Schriftzüge   */
+  .cat-card--c6  { grid-column: 2; grid-row: 44 / span 6;  }     /* Türklingeln   */
 
   /* Picture wrapper fills the card; img inside fills picture. */
   .cat-card picture { position: absolute; inset: 0; display: block; }
