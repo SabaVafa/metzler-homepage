@@ -2284,20 +2284,21 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .config__steps { grid-template-columns: 1fr; }
   /* ============================================================
      BENTO RHYTHM — 2-column mobile grid (matches live site)
-     Sequence:
+     Uses 50px grid units with explicit row spans for deterministic
+     heights. Logical sequence:
        1. Sprechanlagen (hero, full width)
        2. Briefkästen (hero, full width)
-       3. Mülltonnen (½) | Paketboxen (½, spans 2 rows tall portrait)
+       3. Mülltonnen (½) | Paketboxen (½, tall, spans 2 rows)
        4. Hochbeete (½) | [Paketboxen continues]
        5. Außenleuchten (hero, full width)
        6. Funkklingeln (½) | Briefkastenschilder (½)
-       7. Hausnummern (½, spans 2 rows tall portrait) | Schriftzüge (½)
+       7. Hausnummern (½, tall, spans 2 rows) | Schriftzüge (½)
        8. [Hausnummern continues] | Türklingeln (½)
      ============================================================ */
   .cats__grid {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: none;
-    grid-auto-rows: auto;
+    grid-auto-rows: 50px;
     gap: 10px;
   }
   .cat-card--c1, .cat-card--c2, .cat-card--c3,
@@ -2307,40 +2308,28 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     grid-row: auto;
   }
 
-  /* Heroes — full width landscape */
-  .cat-card--c2 { grid-column: 1 / -1; grid-row: 1; aspect-ratio: 1.79; }
-  .cat-card--c5 { grid-column: 1 / -1; grid-row: 2; aspect-ratio: 1.79; }
-  .cat-card--c8 { grid-column: 1 / -1; grid-row: 5; aspect-ratio: 1.17; }
+  /* Heroes — full width */
+  .cat-card--c2 { grid-column: 1 / -1; grid-row: 1 / span 4; }   /* Sprechanlagen */
+  .cat-card--c5 { grid-column: 1 / -1; grid-row: 5 / span 4; }   /* Briefkästen   */
+  .cat-card--c8 { grid-column: 1 / -1; grid-row: 15 / span 5; }  /* Außenleuchten */
 
-  /* Row 3-4: Müll + Paket(tall) + Hoch */
-  .cat-card--c1 { grid-column: 1; grid-row: 3; aspect-ratio: 1.17; }
-  .cat-card--c4 { grid-column: 2; grid-row: 3 / span 2; aspect-ratio: 0.54; }
-  .cat-card--c3 { grid-column: 1; grid-row: 4; aspect-ratio: 1; }
+  /* Müll + Paket(tall) + Hoch */
+  .cat-card--c1 { grid-column: 1; grid-row: 9  / span 3; }       /* Mülltonnen    */
+  .cat-card--c4 { grid-column: 2; grid-row: 9  / span 6; }       /* Paketboxen    */
+  .cat-card--c3 { grid-column: 1; grid-row: 12 / span 3; }       /* Hochbeete     */
 
-  /* Row 6: Funk + Schild */
-  .cat-card--c9  { grid-column: 1; grid-row: 6; aspect-ratio: 1.36; }
-  .cat-card--c10 { grid-column: 2; grid-row: 6; aspect-ratio: 1.36; }
+  /* Funk + Schild */
+  .cat-card--c9  { grid-column: 1; grid-row: 20 / span 2; }      /* Funkklingeln  */
+  .cat-card--c10 { grid-column: 2; grid-row: 20 / span 2; }      /* Briefk.schild */
 
-  /* Row 7-8: Haus(tall) + Schriftzug + Türklingel */
-  .cat-card--c7  { grid-column: 1; grid-row: 7 / span 2; aspect-ratio: 0.54; }
-  .cat-card--c11 { grid-column: 2; grid-row: 7; aspect-ratio: 1.36; }
-  .cat-card--c6  { grid-column: 2; grid-row: 8; aspect-ratio: 1; }
+  /* Haus(tall) + Schriftzug + Türklingel */
+  .cat-card--c7  { grid-column: 1; grid-row: 22 / span 5; }      /* Hausnummern   */
+  .cat-card--c11 { grid-column: 2; grid-row: 22 / span 2; }      /* Schriftzüge   */
+  .cat-card--c6  { grid-column: 2; grid-row: 24 / span 3; }      /* Türklingeln   */
 
-  /* Aspect-ratio on .cat-card controls tile height — keep grid from
-     stretching it. */
-  .cat-card { align-self: start; }
-
-  /* Cover the picture wrapper too — match the absolute-positioned <img>
-     so the wrapper doesn't push grid heights and the img fills the
-     card cleanly. */
-  .cat-card picture {
-    position: absolute;
-    inset: 0;
-    display: block;
-  }
-  .cat-card picture img {
-    position: absolute;
-    inset: 0;
+  /* Picture wrapper fills the card; img inside fills picture. */
+  .cat-card picture { position: absolute; inset: 0; display: block; }
+  .cat-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
