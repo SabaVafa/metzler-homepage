@@ -2252,11 +2252,6 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     scroll-snap-align: center;
     padding: 0;
     gap: 10px;
-    /* Flush content (icon + text) to the card's left edge so the
-       first badge's visible content aligns with the section
-       heading below — not just the invisible card boundary. */
-    align-items: flex-start;
-    text-align: left;
   }
 
   /* Re-center the desktop hairline divider inside the carousel gap */
