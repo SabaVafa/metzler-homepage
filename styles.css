@@ -2327,14 +2327,10 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .cat-card--c11 { grid-column: 2; grid-row: 40 / span 4;  }     /* Schriftzüge   */
   .cat-card--c6  { grid-column: 2; grid-row: 44 / span 6;  }     /* Türklingeln   */
 
-  /* Picture wrapper fills the card; img inside fills picture. */
-  .cat-card picture { position: absolute; inset: 0; display: block; }
-  .cat-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
+  /* Make <picture> invisible to layout so the inner <img> (already
+     position: absolute / inset: 0 from desktop) positions directly
+     against .cat-card and can't escape it. */
+  .cat-card picture { display: contents; }
 
   /* SCRIM — subtle gradient, only at bottom behind text */
   .cat-card::after {
