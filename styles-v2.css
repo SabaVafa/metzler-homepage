@@ -1057,6 +1057,9 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     width: 100%;
     height: 360px;
     order: -1;
+    /* Clip any image overflow (including the webkit box-reflect)
+       so nothing bleeds beneath the stage on mobile. */
+    overflow: hidden;
   }
   .hero-banner__copy {
     margin-left: var(--sp-6);
@@ -1085,6 +1088,9 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     filter: none;
     -webkit-mask-image: none;
     mask-image: none;
+    /* Disable the desktop webkit mirror reflection — it doubles the
+       device beneath the poster on mobile. */
+    -webkit-box-reflect: none;
   }
   .hero-banner__reddot { width: 18%; max-width: 140px; }
 }
