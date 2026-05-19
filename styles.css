@@ -2344,13 +2344,18 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
      crop hides it behind the glass door. Pull the focal point left. */
   .cat-card--c2 img { object-position: 18% center; }
 
-  /* SCRIM — match the desktop formula: transparent top half, hard
-     dark band at the bottom for guaranteed label contrast. */
+  /* SCRIM — concentrated dark band in the bottom third, where the
+     labels sit. Mobile tiles are smaller than desktop, so a gentle
+     50% break-point doesn't put enough darkness behind the text. */
   .cat-card::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.7) 100%);
+    background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0)    0%,
+      rgba(0, 0, 0, 0)    40%,
+      rgba(0, 0, 0, 0.55) 75%,
+      rgba(0, 0, 0, 0.9)  100%);
     z-index: 1;
     pointer-events: none;
   }
@@ -2374,9 +2379,11 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     overflow: hidden;
     text-overflow: ellipsis;
     z-index: 2;
-    /* Light text-shadow only — the bottom scrim handles the bulk of
-       the contrast; this just hardens glyph edges. */
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+    /* Strong tight shadow as second layer of insurance on top of the
+       scrim — keeps the label crisp against unpredictable photo spots. */
+    text-shadow:
+      0 1px 1px rgba(0, 0, 0, 0.85),
+      0 0 2px rgba(0, 0, 0, 0.7);
   }
   /* (No per-tier font-size override — every tile uses 14px) */
   .cat-card--c2 .cat-card__title,
