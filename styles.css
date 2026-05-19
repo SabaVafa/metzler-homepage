@@ -402,9 +402,9 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .header__burger { display: flex; }
   .header__main { grid-template-columns: auto 1fr auto; }
   .header__nav { display: none; }
-  .mobile-bar { display: flex; }
-  body { padding-bottom: 68px; }
-
+  /* Mobile sticky action bar removed — no bottom padding needed */
+  .mobile-bar { display: none !important; }
+  body { padding-bottom: 0; }
 }
 
 /* ============================================================
@@ -471,7 +471,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 
   /* Logo — center-aligned in its grid column */
   .header__logo { justify-self: center; }
-  .header__logo img { height: 30px; }
+  .header__logo img { height: 24px; }
 }
 
 /* ============================================================
