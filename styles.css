@@ -2344,47 +2344,51 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
      crop hides it behind the glass door. Pull the focal point left. */
   .cat-card--c2 img { object-position: 18% center; }
 
-  /* SCRIM — clean transparent-to-dark gradient concentrated at the
-     bottom where the label sits. */
+  /* SCRIM — soft, since the label pill carries its own background.
+     A light bottom fade keeps the tile from feeling flat. */
   .cat-card::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 55%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 35%);
     z-index: 1;
     pointer-events: none;
   }
 
-  /* UNIFIED ANCHOR LABELS — single size across every tile, single line. */
+  /* UNIFIED ANCHOR LABELS — inline-block pill at bottom-left with a
+     localized dark backdrop, so the white text reads crisply
+     regardless of the underlying photo. */
   .cat-card__title {
     position: absolute;
-    left: 14px;
-    bottom: 14px;
-    right: 14px;
+    left: 10px;
+    bottom: 10px;
+    right: auto;
+    max-width: calc(100% - 20px);
+    width: fit-content;
+    display: inline-block;
+    padding: 5px 10px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 6px;
     text-align: left;
     color: #fff;
     font-weight: 700;
     font-size: 16px;
     line-height: 1.2;
     letter-spacing: -0.015em;
-    background: none;
-    padding: 0;
-    border-radius: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     z-index: 2;
-    /* Single sharp drop shadow — no blur halo, so the white glyphs
-       stay crisp white instead of greying out at the edges. */
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   }
-  /* (No per-tier font-size override — every tile uses 14px) */
-  .cat-card--c2 .cat-card__title,
-  .cat-card--c5 .cat-card__title {
-    left: 20px;
-    bottom: 20px;
-    right: 20px;
-    letter-spacing: -0.015em;
+  /* Hero tier — slightly more inset */
+  .cat-card--c5 .cat-card__title,
+  .cat-card--c3 .cat-card__title,
+  .cat-card--c10 .cat-card__title {
+    left: 14px;
+    bottom: 14px;
   }
 
   /* Promo badges — top-right pills, never overlap labels */
