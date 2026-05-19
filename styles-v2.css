@@ -1045,10 +1045,11 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     flex-direction: column;
     padding-block: var(--sp-10);
   }
-  /* Hide the floor-reflection pseudo on mobile — it's anchored at the
-     bottom 40% of the section, which on the stacked mobile layout
-     lands behind the body text instead of beneath the device. */
-  .hero-banner::before { display: none; }
+  /* Hide both decorative pseudos on mobile — the floor reflection
+     would bleed into the body text area, and the bottom hairline
+     adds a stray gradient line under the CTAs. */
+  .hero-banner::before,
+  .hero-banner::after { display: none; }
   .hero-banner__stage {
     position: relative;
     left: 0;
