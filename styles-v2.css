@@ -1137,9 +1137,9 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     width: 32%;
     max-width: 220px;
     min-width: 120px;
-    /* Mobile-specific nudge: shift 10px further left than the
+    /* Mobile-specific nudge: shift 40px further left than the
        inherited desktop right: 27%. */
-    right: calc(27% + 10px);
+    right: calc(27% + 40px);
   }
 }
 
