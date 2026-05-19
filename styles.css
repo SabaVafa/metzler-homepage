@@ -2354,7 +2354,9 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     pointer-events: none;
   }
 
-  /* UNIFIED ANCHOR LABELS — strict bottom-left */
+  /* UNIFIED ANCHOR LABELS — single size across every tile, single line.
+     14px chosen so the longest label ("Briefkastenschilder", 19 chars)
+     still fits a 166px-wide half-tile without breaking. */
   .cat-card__title {
     position: absolute;
     left: 14px;
@@ -2365,16 +2367,13 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     font-weight: 700;
     font-size: 14px;
     line-height: 1.2;
-    letter-spacing: -0.005em;
+    letter-spacing: -0.015em;
     background: none;
     padding: 0;
     border-radius: 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    white-space: nowrap;
     overflow: hidden;
-    hyphens: auto;
-    -webkit-hyphens: auto;
+    text-overflow: ellipsis;
     z-index: 2;
     /* Tight, dense shadow — keeps glyph edges crisp white instead of
        fuzzing them into gray, while still anchoring the label over
@@ -2383,26 +2382,9 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
       0 1px 1px rgba(0, 0, 0, 0.7),
       0 0 2px rgba(0, 0, 0, 0.55);
   }
-  /* Standard tier — wide 2:1 and tall portrait tiles */
-  .cat-card--c1 .cat-card__title,
-  .cat-card--c3 .cat-card__title,
-  .cat-card--c4 .cat-card__title,
-  .cat-card--c6 .cat-card__title,
-  .cat-card--c7 .cat-card__title,
-  .cat-card--c8 .cat-card__title,
-  .cat-card--c9 .cat-card__title,
-  .cat-card--c10 .cat-card__title,
-  .cat-card--c11 .cat-card__title {
-    font-size: 18px;
-    left: 16px;
-    bottom: 16px;
-    right: 16px;
-  }
-  /* HERO tier — Sprechanlagen + Briefkästen */
+  /* (No per-tier font-size override — every tile uses 14px) */
   .cat-card--c2 .cat-card__title,
   .cat-card--c5 .cat-card__title {
-    font-size: 24px;
-    font-weight: 800;
     left: 20px;
     bottom: 20px;
     right: 20px;
