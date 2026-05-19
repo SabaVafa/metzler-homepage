@@ -1609,9 +1609,10 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   padding: 8px;
   background: var(--white);
   border: 1px solid var(--graphite-300);
-  /* Explicit 8px + overflow:hidden so the inner tab backgrounds are
-     clipped exactly to the bar's corners. */
-  border-radius: 8px;
+  /* 4px — same proportional curve as the cards' 8px since the bar is
+     roughly half the height. Pixel values differ, visual perception
+     of roundness matches. */
+  border-radius: 4px;
   overflow: hidden;
 }
 .reviews__tab { flex: 1; justify-content: center; }
