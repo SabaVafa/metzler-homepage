@@ -1609,8 +1609,9 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   padding: 8px;
   background: var(--white);
   border: 1px solid var(--graphite-300);
-  /* Match the review card radius (var(--r-l) = 8px). */
-  border-radius: var(--r-l);
+  /* Controls take a smaller radius than content cards — standard
+     design-system hierarchy (Material, Polaris, Carbon). */
+  border-radius: var(--r-m);
 }
 .reviews__tab { flex: 1; justify-content: center; }
 .reviews__tab {
@@ -1626,9 +1627,9 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  /* Concentric with the .reviews__tabs (var(--r-l) = 8px) minus 2px
+  /* Concentric with the .reviews__tabs (var(--r-m) = 4px) minus 2px
      so the inner pill stays visually parallel to the outer shell. */
-  border-radius: 6px;
+  border-radius: var(--r-s);
   transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
 }
 .reviews__tab:hover {
