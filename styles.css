@@ -2341,8 +2341,17 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 
   /* Per-tile focal point adjustments — the Sprechanlage panel sits
      in the left third of its source image, so the default centered
-     crop hides it behind the glass door. Pull the focal point left. */
-  .cat-card--c2 img { object-position: 18% center; }
+     crop hides it behind the glass door. Pull the focal point left,
+     and shift the image down so the panel reads as vertically
+     centered (the source has more empty wall below the panel than
+     above; shifting down equalizes the visible padding). */
+  .cat-card--c2 { background: #ffffff; }
+  .cat-card--c2 img {
+    object-position: 18% center;
+    top: 7%;
+    bottom: auto;
+    height: 100%;
+  }
 
   /* SCRIM — Solution A: two stacked gradients guarantee a worst-case
      ~75% black band where the label sits, hitting WCAG AA contrast
