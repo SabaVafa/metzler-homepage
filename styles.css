@@ -1058,7 +1058,13 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     max-width: none;
     padding-block: 0;
   }
-  .hero-banner__title { font-size: var(--text-h2); max-width: none; }
+  .hero-banner__title {
+    font-size: var(--text-h2);
+    max-width: none;
+    /* Match the .hero-banner__chips margin-top below the title so the
+       space above and below the title text is consistent. */
+    margin-top: var(--sp-5);
+  }
   .hero-banner__ctas { grid-template-columns: 1fr; max-width: none; }
   .hero-banner__poster {
     height: 100%;
