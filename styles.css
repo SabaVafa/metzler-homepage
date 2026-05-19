@@ -2344,13 +2344,13 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
      crop hides it behind the glass door. Pull the focal point left. */
   .cat-card--c2 img { object-position: 18% center; }
 
-  /* SCRIM — soft bottom fade for tonal depth; the per-glyph stroke
-     is what guarantees legibility, not this gradient. */
+  /* SCRIM — exact desktop formula: transparent top half, fading to
+     70% black at the bottom. */
   .cat-card::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 45%);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%);
     z-index: 1;
     pointer-events: none;
   }
@@ -2378,18 +2378,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     overflow: hidden;
     text-overflow: ellipsis;
     z-index: 2;
-    text-shadow:
-      /* 1px sharp stroke in 8 directions — locks every glyph against any background */
-      -1px -1px 0 rgba(0, 0, 0, 0.9),
-       0   -1px 0 rgba(0, 0, 0, 0.9),
-       1px -1px 0 rgba(0, 0, 0, 0.9),
-       1px  0   0 rgba(0, 0, 0, 0.9),
-       1px  1px 0 rgba(0, 0, 0, 0.9),
-       0    1px 0 rgba(0, 0, 0, 0.9),
-      -1px  1px 0 rgba(0, 0, 0, 0.9),
-      -1px  0   0 rgba(0, 0, 0, 0.9),
-      /* Soft drop shadow underneath — adds elevation, not fog */
-       0 2px 6px rgba(0, 0, 0, 0.55);
+    /* No text-shadow — exact desktop technique, scrim only */
   }
 
   /* Promo badges — top-right pills, never overlap labels */
