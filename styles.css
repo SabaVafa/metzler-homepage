@@ -1625,7 +1625,10 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  border-radius: var(--r-m);
+  /* Concentric with the .reviews__tabs (var(--r-l) = 8px) minus 2px
+     so the inner pill feels visually parallel to the outer shell —
+     same relationship iOS segmented controls use. */
+  border-radius: 6px;
   transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
 }
 .reviews__tab:hover {
