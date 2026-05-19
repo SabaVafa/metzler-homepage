@@ -2365,6 +2365,12 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     pointer-events: none;
   }
 
+  /* Lift the label container above the scrim. Desktop sets z-index:1
+     on .cat-card__body which collides with the scrim's z-index:1, and
+     because the ::after pseudo appears later in DOM it paints on top
+     of the label. Mobile needs z-index:2 here so the label wins. */
+  .cat-card__body { z-index: 2; }
+
   /* UNIFIED ANCHOR LABELS — clean white text, no background. Legibility
      comes from a 1px sharp stroke (8 directional shadows at zero blur)
      plus a soft drop shadow for depth. This is the photo-overlay typography
