@@ -2344,12 +2344,13 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
      crop hides it behind the glass door. Pull the focal point left. */
   .cat-card--c2 img { object-position: 18% center; }
 
-  /* SCRIM — subtle gradient, only at bottom behind text */
+  /* SCRIM — match the desktop formula: transparent top half, hard
+     dark band at the bottom for guaranteed label contrast. */
   .cat-card::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 35%, transparent 60%);
+    background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.7) 100%);
     z-index: 1;
     pointer-events: none;
   }
@@ -2373,12 +2374,9 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     overflow: hidden;
     text-overflow: ellipsis;
     z-index: 2;
-    /* Tight, dense shadow — keeps glyph edges crisp white instead of
-       fuzzing them into gray, while still anchoring the label over
-       light spots. */
-    text-shadow:
-      0 1px 1px rgba(0, 0, 0, 0.7),
-      0 0 2px rgba(0, 0, 0, 0.55);
+    /* Light text-shadow only — the bottom scrim handles the bulk of
+       the contrast; this just hardens glyph edges. */
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
   }
   /* (No per-tier font-size override — every tile uses 14px) */
   .cat-card--c2 .cat-card__title,
