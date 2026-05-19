@@ -2354,9 +2354,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     pointer-events: none;
   }
 
-  /* UNIFIED ANCHOR LABELS — single size across every tile, single line.
-     14px chosen so the longest label ("Briefkastenschilder", 19 chars)
-     still fits a 166px-wide half-tile without breaking. */
+  /* UNIFIED ANCHOR LABELS — single size across every tile, single line. */
   .cat-card__title {
     position: absolute;
     left: 14px;
@@ -2365,7 +2363,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     text-align: left;
     color: #fff;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.2;
     letter-spacing: -0.015em;
     background: none;
