@@ -405,11 +405,6 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   /* Mobile sticky action bar removed — no bottom padding needed */
   .mobile-bar { display: none !important; }
   body { padding-bottom: 0; }
-
-  /* Tighter side padding on mobile — was clamp(24px, 4vw, 56px) which
-     gave 24px at iPhone widths; bring it down to 16px so sections
-     breathe closer to the viewport edges. */
-  .container { padding-inline: 16px; }
 }
 
 /* ============================================================
