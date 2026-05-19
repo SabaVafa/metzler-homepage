@@ -1062,12 +1062,13 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .hero-banner__ctas { grid-template-columns: 1fr; max-width: none; }
   .hero-banner__poster {
     height: 100%;
-    width: auto;
+    width: 100%;
     transform: none;
-    object-position: center;
-    /* On mobile show the photo as-is — no blend, no mask, no transformation.
-       The photo's native composition (device + spotlight) renders cleanly
-       at a contained portrait size, centered in the stage. */
+    /* Bias the focal point upward so the reflective ground at the
+       bottom of the source reads with the same visual weight as the
+       spotlight glow above the device. */
+    object-fit: cover;
+    object-position: center 35%;
     mix-blend-mode: normal;
     filter: none;
     -webkit-mask-image: none;
@@ -2341,17 +2342,8 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 
   /* Per-tile focal point adjustments — the Sprechanlage panel sits
      in the left third of its source image, so the default centered
-     crop hides it behind the glass door. Pull the focal point left,
-     and shift the image down so the panel reads as vertically
-     centered (the source has more empty wall below the panel than
-     above; shifting down equalizes the visible padding). */
-  .cat-card--c2 { background: #ffffff; }
-  .cat-card--c2 img {
-    object-position: 18% center;
-    top: 7%;
-    bottom: auto;
-    height: 100%;
-  }
+     crop hides it behind the glass door. Pull the focal point left. */
+  .cat-card--c2 img { object-position: 18% center; }
 
   /* SCRIM — Solution A: two stacked gradients guarantee a worst-case
      ~75% black band where the label sits, hitting WCAG AA contrast
