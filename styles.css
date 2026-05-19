@@ -2371,6 +2371,10 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
      of the label. Mobile needs z-index:2 here so the label wins. */
   .cat-card__body { z-index: 2; }
 
+  /* Hide the teal hover-indicator line on mobile — it flashes on tap
+     (touch :active) and adds noise rather than affordance. */
+  .cat-card__title::before { display: none; }
+
   /* UNIFIED ANCHOR LABELS — clean white text, no background. Legibility
      comes from a 1px sharp stroke (8 directional shadows at zero blur)
      plus a soft drop shadow for depth. This is the photo-overlay typography
@@ -2384,7 +2388,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     text-align: left;
     color: #fff;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 17px;
     line-height: 1.2;
     letter-spacing: -0.015em;
     background: none;
