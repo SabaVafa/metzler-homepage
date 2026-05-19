@@ -2339,6 +2339,11 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
      image to .cat-card directly. */
   .cat-card picture { display: contents; }
 
+  /* Per-tile focal point adjustments — the Sprechanlage panel sits
+     in the left third of its source image, so the default centered
+     crop hides it behind the glass door. Pull the focal point left. */
+  .cat-card--c2 img { object-position: 18% center; }
+
   /* SCRIM — subtle gradient, only at bottom behind text */
   .cat-card::after {
     content: "";
