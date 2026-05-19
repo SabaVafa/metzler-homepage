@@ -1609,10 +1609,8 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   padding: 8px;
   background: var(--white);
   border: 1px solid var(--graphite-300);
-  /* 4px — same proportional curve as the cards' 8px since the bar is
-     roughly half the height. Pixel values differ, visual perception
-     of roundness matches. */
-  border-radius: 4px;
+  /* Match the review card radius (8px) for numeric consistency. */
+  border-radius: 8px;
   overflow: hidden;
 }
 .reviews__tab { flex: 1; justify-content: center; }
@@ -1629,9 +1627,9 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  /* Square inner buttons — they cannot push a pill shape onto the
-     parent because they have no radius of their own. */
-  border-radius: 0;
+  /* Concentric with the .reviews__tabs (8px) minus 2px so the inner
+     pill stays visually parallel to the outer shell. */
+  border-radius: 6px;
   transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
 }
 .reviews__tab:hover {
