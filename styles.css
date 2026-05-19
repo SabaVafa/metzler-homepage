@@ -2308,24 +2308,25 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     grid-row: auto;
   }
 
-  /* Heroes — full width */
-  .cat-card--c2 { grid-column: 1 / -1; grid-row: 1  / span 7;  } /* Sprechanlagen */
-  .cat-card--c5 { grid-column: 1 / -1; grid-row: 8  / span 7;  } /* Briefkästen   */
-  .cat-card--c8 { grid-column: 1 / -1; grid-row: 26 / span 10; } /* Außenleuchten */
+  /* ───── Module 1 (rows 1-17) ─────
+     Hero: c5 Briefkasten | Tall: c2 Sprech | LS top: c1 Müll | Sq bot: c6 Tür */
+  .cat-card--c5 { grid-column: 1 / -1; grid-row: 1  / span 8; }
+  .cat-card--c2 { grid-column: 1;      grid-row: 9  / span 9; }
+  .cat-card--c1 { grid-column: 2;      grid-row: 9  / span 4; }
+  .cat-card--c6 { grid-column: 2;      grid-row: 13 / span 5; }
 
-  /* Müll + Paket(tall) + Hoch */
-  .cat-card--c1 { grid-column: 1; grid-row: 15 / span 5;  }      /* Mülltonnen    */
-  .cat-card--c4 { grid-column: 2; grid-row: 15 / span 11; }      /* Paketboxen    */
-  .cat-card--c3 { grid-column: 1; grid-row: 20 / span 6;  }      /* Hochbeete     */
+  /* ───── Module 2 (rows 18-34) ─────
+     Hero: c3 Hoch | Tall: c4 Paket | LS top: c8 Außen | Sq bot: c9 Funk */
+  .cat-card--c3 { grid-column: 1 / -1; grid-row: 18 / span 8; }
+  .cat-card--c4 { grid-column: 1;      grid-row: 26 / span 9; }
+  .cat-card--c8 { grid-column: 2;      grid-row: 26 / span 4; }
+  .cat-card--c9 { grid-column: 2;      grid-row: 30 / span 5; }
 
-  /* Funk + Schild */
-  .cat-card--c9  { grid-column: 1; grid-row: 36 / span 4; }      /* Funkklingeln  */
-  .cat-card--c10 { grid-column: 2; grid-row: 36 / span 4; }      /* Briefk.schild */
-
-  /* Haus(tall) + Schriftzug + Türklingel */
-  .cat-card--c7  { grid-column: 1; grid-row: 40 / span 10; }     /* Hausnummern   */
-  .cat-card--c11 { grid-column: 2; grid-row: 40 / span 4;  }     /* Schriftzüge   */
-  .cat-card--c6  { grid-column: 2; grid-row: 44 / span 6;  }     /* Türklingeln   */
+  /* ───── Module 3 (rows 35-51) ─────
+     Hero: c10 Schild | Tall: c7 Haus | LS top: c11 Schriftzug | (no Sq bot) */
+  .cat-card--c10 { grid-column: 1 / -1; grid-row: 35 / span 8; }
+  .cat-card--c7  { grid-column: 1;      grid-row: 43 / span 9; }
+  .cat-card--c11 { grid-column: 2;      grid-row: 43 / span 4; }
 
   /* Make <picture> invisible to layout so the inner <img> (already
      position: absolute / inset: 0 from desktop) positions directly
