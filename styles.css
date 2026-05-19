@@ -1049,8 +1049,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     position: relative;
     left: 0;
     width: 100%;
-    height: 300px;
-    overflow: hidden;
+    height: 360px;
     order: -1;
   }
   .hero-banner__copy {
@@ -1065,12 +1064,11 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     height: 100%;
     width: 100%;
     transform: none;
-    /* Trim more from the top of the source than from the bottom so
-       the empty spotlight area above the device shrinks down to
-       roughly match the reflection area below it. ~13% padding both
-       ends on iPhone widths. */
+    /* Bias the focal point upward so the reflective ground at the
+       bottom of the source reads with the same visual weight as the
+       spotlight glow above the device. */
     object-fit: cover;
-    object-position: center 15%;
+    object-position: center 35%;
     mix-blend-mode: normal;
     filter: none;
     -webkit-mask-image: none;
