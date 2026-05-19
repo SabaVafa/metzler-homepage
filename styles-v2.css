@@ -1133,7 +1133,14 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
        device beneath the poster on mobile. */
     -webkit-box-reflect: none;
   }
-  .hero-banner__reddot { width: 32%; max-width: 220px; min-width: 120px; }
+  .hero-banner__reddot {
+    width: 32%;
+    max-width: 220px;
+    min-width: 120px;
+    /* Mobile-specific nudge: shift 10px further left than the
+       inherited desktop right: 27%. */
+    right: calc(27% + 10px);
+  }
 }
 
 /* ============================================================
@@ -2496,7 +2503,8 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .gallery__grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 220px; }
   .gallery__tile--wide,
   .gallery__tile--tall { grid-column: span 1; grid-row: span 1; }
-  .reviews__head { grid-template-columns: 1fr; gap: var(--sp-5); }
+  /* .reviews__head is display:flex by default — gap only. */
+  .reviews__head { gap: var(--sp-5); }
   .reviews__grid { grid-template-columns: 1fr; }
   .footer__top { grid-template-columns: 1fr 1fr; }
   .footer__top > * { grid-column: span 1; }
@@ -2507,18 +2515,23 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 @media (max-width: 640px) {
   :root { --section-y: var(--sp-12); }
   .topbar { display: none; }
-  .hero { min-height: 540px; }
-  .hero h1 { font-size: 2rem; }
-  .section-title,
-  .xdm10__copy h2,
-  .config h2,
-  .awards h2 { font-size: 2rem; }
   /* (cats__grid sized exclusively by the 900px @media — no override here) */
   .gallery__grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
   .footer__top,
   .footer__quality-grid { grid-template-columns: 1fr; }
   .header__nav ul { gap: var(--sp-5); }
-  .reviews__rating-num { font-size: 2.25rem; }
+}
+
+/* ============================================================
+   Section titles — entire mobile tier (≤767px) gets the smaller
+   32px size. Previously bound to ≤640, which left 641–767 stuck
+   at the desktop 46px and produced a non-monotonic curve
+   (32 → 46 → 36 → 46 as viewport grew).
+   ============================================================ */
+@media (max-width: 767px) {
+  .section-title,
+  .config h2,
+  .awards h2 { font-size: 2rem; }
 }
 
 /* ============================================================
@@ -2537,25 +2550,28 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 
   /* Section titles — scaled down from desktop's 46px so they don't
      stretch awkwardly across the narrower tablet viewport. Sits
-     between desktop (46px) and mobile ≤640 (32px). */
+     between desktop (46px) and mobile (32px). */
   .section-title,
   .config h2,
   .awards h2 { font-size: 2.25rem; }
 
+  /* Header — this block lives at the end of the file and wins
+     source-order against the earlier ≤900 / ≤1023 blocks at equal
+     specificity, so no !important is needed. */
   .header__main {
-    grid-template-columns: auto 1fr auto !important;
-    gap: var(--sp-6) !important;
-    height: 72px !important;
-    padding-block: 0 !important;
+    grid-template-columns: auto 1fr auto;
+    gap: var(--sp-6);
+    height: 72px;
+    padding-block: 0;
   }
   .header__logo img { height: 28px; }
   .header__search {
-    grid-column: auto !important;
-    order: 0 !important;
-    max-width: 846px !important;
-    padding-bottom: 0 !important;
+    grid-column: auto;
+    order: 0;
+    max-width: 846px;
+    padding-bottom: 0;
   }
-  .header__nav { display: block !important; }
+  .header__nav { display: block; }
   /* Side padding inherits from .container (same as top header).
      Internal gaps unified at --sp-5 (20px). */
   .header__nav .container {
@@ -2610,6 +2626,10 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
      peeking — natural peek from overflow. */
   .trustbar { position: relative; }
   .trust { max-width: 220px; flex: 0 0 24%; padding-inline: var(--sp-5); }
+  /* Tablet cards have more room than mobile — bump the typography
+     up one notch from the mobile carousel's 12/10 to read better. */
+  .trust__title { font-size: 13px; }
+  .trust__sub { font-size: 11px; }
   .trustbar__inner { scroll-behavior: smooth; }
 
   /* Edge fades — left & right. Visual signal that there's more
@@ -2797,7 +2817,6 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .faq__inner {
     display: flex;
     flex-direction: column;
-    grid-template-columns: 1fr;
     gap: var(--sp-12);
   }
   .faq__inner > *:first-child { order: 2; }
@@ -2865,8 +2884,8 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .awards h2 { max-width: none; }
   .awards__sub { max-width: none; }
   .awards h2, .awards__sub { margin-inline: 0; }
-  .awards__badge { height: 120px; }
+  .awards__badge { height: 148px; }
   .awards__credential-text { padding-left: var(--sp-6); gap: 6px; text-align: left; }
-  .awards__credential-label { font-size: var(--text-body-sm); letter-spacing: 0.2em; }
-  .awards__credential-meta { font-size: var(--text-body); }
+  .awards__credential-label { font-size: var(--text-body); letter-spacing: 0.2em; }
+  .awards__credential-meta { font-size: var(--text-h4); }
 }
