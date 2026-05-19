@@ -664,7 +664,8 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
    ============================================================ */
 .trustbar {
   background: var(--paper-white);
-  padding-block: var(--sp-8);
+  /* Symmetric 48/48 padding-block. */
+  padding-block: var(--sp-12);
   position: relative;
 }
 .trustbar::before {
@@ -1174,9 +1175,6 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 /* ============================================================
    6. Category Grid
    ============================================================ */
-/* Inherits .section { padding-block: var(--section-y) } so the
-   category grid breathes with the same vertical rhythm as every
-   other section on the page. */
 .cats__head {
   display: flex;
   justify-content: space-between;
