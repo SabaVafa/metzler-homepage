@@ -1133,7 +1133,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
        device beneath the poster on mobile. */
     -webkit-box-reflect: none;
   }
-  .hero-banner__reddot { width: 18%; max-width: 140px; }
+  .hero-banner__reddot { width: 32%; max-width: 220px; min-width: 120px; }
 }
 
 /* ============================================================
@@ -1482,6 +1482,17 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   color: rgba(255, 255, 255, 0.78);
   letter-spacing: 0.01em;
 }
+
+/* Desktop: scale the credential row up to read as a proper
+   press-credential anchor alongside the headline. */
+@media (min-width: 1024px) {
+  .awards__credential { gap: var(--sp-6); }
+  .awards__badge { height: 128px; }
+  .awards__credential-text { padding-left: var(--sp-6); gap: 6px; }
+  .awards__credential-label { font-size: var(--text-body-sm); letter-spacing: 0.2em; }
+  .awards__credential-meta { font-size: var(--text-body); }
+}
+
 .awards h2 {
   font-size: var(--text-display);
   line-height: var(--lh-display);
