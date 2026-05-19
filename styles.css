@@ -2295,19 +2295,32 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
        M3 → Schild      | Haus   | Schriftzug | —
      ============================================================ */
   .cats__grid {
+    /* Width of the grid track in viewport units. .container pads
+       24px each side at mobile widths, so usable width = 100vw - 48px,
+       and each half-column = (usable - 10gap) / 2 = (100vw - 58px)/2. */
+    --grid-w:    calc(100vw - 48px);
+    --grid-half: calc((100vw - 58px) / 2);
+
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-    grid-auto-rows: auto;
+    grid-template-rows:
+      calc(var(--grid-w)    / 1.43)  /* row 1: hero 1            */
+      calc(var(--grid-half) / 1.46)  /* row 2: LS top  / tall    */
+      calc(var(--grid-half) / 1.24)  /* row 3: sq bot  / tall    */
+      calc(var(--grid-w)    / 1.43)  /* row 4: hero 2            */
+      calc(var(--grid-half) / 1.46)  /* row 5: LS top  / tall    */
+      calc(var(--grid-half) / 1.24)  /* row 6: sq bot  / tall    */
+      calc(var(--grid-w)    / 1.43)  /* row 7: hero 3            */
+      calc(var(--grid-half) / 1.46); /* row 8: LS only           */
     grid-template-areas:
-      "h1   h1 "
-      "t1   ls1"
-      "t1   sq1"
-      "h2   h2 "
-      "t2   ls2"
-      "t2   sq2"
-      "h3   h3 "
-      "t3   ls3";
+      "h1 h1"
+      "t1 ls1"
+      "t1 sq1"
+      "h2 h2"
+      "t2 ls2"
+      "t2 sq2"
+      "h3 h3"
+      "t3 ls3";
     gap: 10px;
   }
 
@@ -2319,25 +2332,25 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     grid-row: auto;
   }
 
-  /* Slot assignments */
-  .cat-card--c5  { grid-area: h1;  aspect-ratio: 1.43; }
-  .cat-card--c2  { grid-area: t1; }
-  .cat-card--c1  { grid-area: ls1; aspect-ratio: 1.46; }
-  .cat-card--c6  { grid-area: sq1; aspect-ratio: 1.24; }
+  /* Slot assignments (heights come from grid-template-rows above) */
+  .cat-card--c5  { grid-area: h1;  }
+  .cat-card--c2  { grid-area: t1;  }
+  .cat-card--c1  { grid-area: ls1; }
+  .cat-card--c6  { grid-area: sq1; }
 
-  .cat-card--c3  { grid-area: h2;  aspect-ratio: 1.43; }
-  .cat-card--c4  { grid-area: t2; }
-  .cat-card--c8  { grid-area: ls2; aspect-ratio: 1.46; }
-  .cat-card--c9  { grid-area: sq2; aspect-ratio: 1.24; }
+  .cat-card--c3  { grid-area: h2;  }
+  .cat-card--c4  { grid-area: t2;  }
+  .cat-card--c8  { grid-area: ls2; }
+  .cat-card--c9  { grid-area: sq2; }
 
-  .cat-card--c10 { grid-area: h3;  aspect-ratio: 1.43; }
-  .cat-card--c7  { grid-area: t3; }
-  .cat-card--c11 { grid-area: ls3; aspect-ratio: 1.46; }
+  .cat-card--c10 { grid-area: h3;  }
+  .cat-card--c7  { grid-area: t3;  }
+  .cat-card--c11 { grid-area: ls3; }
 
-  /* <picture> wrapper passes through to <img> so the desktop
-     position:absolute inset:0 rule on .cat-card img anchors the
-     image to .cat-card directly. */
-  .cat-card picture { display: contents; }
+  /* <picture> as absolute overlay — same behavior as the inner <img>
+     so the wrapper contributes nothing to layout. Avoids display:contents
+     compatibility quirks. */
+  .cat-card picture { position: absolute; inset: 0; display: block; }
 
   /* SCRIM — subtle gradient, only at bottom behind text */
   .cat-card::after {
