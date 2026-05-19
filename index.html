@@ -92,7 +92,7 @@
   <div class="container">
     <div class="header__main">
       <div class="header__left-actions">
-        <button class="header__burger" id="navBurger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileNav">
+        <button class="header__burger" id="navBurger" data-nav-toggle aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileNav">
           <svg><use href="#i-menu-m"/></svg>
         </button>
         <button class="header__search-icon" id="searchIcon" aria-label="Suchen" type="button">
@@ -114,6 +114,10 @@
   </div>
   <nav class="header__nav" aria-label="Hauptnavigation">
     <div class="container">
+      <button class="header__nav-all" type="button" data-nav-toggle aria-controls="mobileNav" aria-expanded="false" aria-label="Alle Kategorien">
+        <img class="header__nav-all-icon" src="ICONS/menu.svg" alt="" aria-hidden="true" />
+        <span class="header__nav-all-label">Alle</span>
+      </button>
       <ul>
         <li><a href="#">Briefkästen</a></li>
         <li><a href="#">Paketboxen</a></li>
@@ -203,6 +207,16 @@
 
 <!-- ===== TRUST BAR ===== -->
 <section class="trustbar" aria-label="Auszeichnungen und Vertrauen">
+  <button class="trustbar__scroll trustbar__scroll--prev" type="button" data-trustbar-scroll="prev" aria-label="Vorherige Auszeichnungen" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="15 6 9 12 15 18"/>
+    </svg>
+  </button>
+  <button class="trustbar__scroll trustbar__scroll--next" type="button" data-trustbar-scroll="next" aria-label="Mehr Auszeichnungen anzeigen" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="9 6 15 12 9 18"/>
+    </svg>
+  </button>
   <div class="container trustbar__inner">
     <div class="trust">
       <div class="trust__icon trust__icon--ntv"><img src="Trust%20badges/NTV.svg" alt="NTV Deutschlands beliebtester Anbieter" /></div>
@@ -703,28 +717,108 @@
 </footer>
 
 <script>
-  // Mobile nav toggle
+  // Mobile + tablet nav toggle — supports multiple openers via [data-nav-toggle]
   (function(){
-    var burger = document.getElementById('navBurger');
-    var panel  = document.getElementById('mobileNav');
-    if (!burger || !panel) return;
-    function open() { panel.classList.add('is-open'); panel.setAttribute('aria-hidden','false'); burger.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
-    function close() { panel.classList.remove('is-open'); panel.setAttribute('aria-hidden','true'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
-    burger.addEventListener('click', open);
+    var toggles = document.querySelectorAll('[data-nav-toggle]');
+    var panel   = document.getElementById('mobileNav');
+    if (!toggles.length || !panel) return;
+    function setExpanded(v) { toggles.forEach(function(t){ t.setAttribute('aria-expanded', v ? 'true' : 'false'); }); }
+    function open() { panel.classList.add('is-open'); panel.setAttribute('aria-hidden','false'); setExpanded(true); document.body.style.overflow='hidden'; }
+    function close() { panel.classList.remove('is-open'); panel.setAttribute('aria-hidden','true'); setExpanded(false); document.body.style.overflow=''; }
+    toggles.forEach(function(t){ t.addEventListener('click', open); });
     panel.querySelectorAll('[data-close], a').forEach(function(el){ el.addEventListener('click', close); });
     document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
   })();
 
-  // Responsive search placeholder — short on mobile, long on desktop
+  // Tablet nav: hide categories that don't fit. Hidden items remain
+  // accessible via the "Alle" drawer. No horizontal scroll.
+  (function(){
+    var nav = document.querySelector('.header__nav');
+    if (!nav) return;
+    var ul = nav.querySelector('ul');
+    if (!ul) return;
+    var items = Array.prototype.slice.call(ul.children);
+    var tabletMq = window.matchMedia('(min-width: 768px) and (max-width: 1023px)');
+
+    function reset() { items.forEach(function(li){ li.hidden = false; }); }
+
+    function fit() {
+      reset();
+      if (!tabletMq.matches) return;
+      // Hide from the end until ul no longer overflows
+      for (var i = items.length - 1; i >= 0; i--) {
+        if (ul.scrollWidth <= ul.clientWidth + 1) break;
+        items[i].hidden = true;
+      }
+    }
+
+    // Run after fonts load so widths are accurate
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(fit);
+    } else {
+      window.addEventListener('load', fit);
+    }
+    fit();
+    var raf;
+    window.addEventListener('resize', function(){
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(fit);
+    });
+  })();
+
+  // Tablet trustbar: prev/next arrows + edge fades. Auto-toggles
+  // based on scroll position. Tablet-only (768–1023).
+  (function(){
+    var inner   = document.querySelector('.trustbar__inner');
+    var prevBtn = document.querySelector('[data-trustbar-scroll="prev"]');
+    var nextBtn = document.querySelector('[data-trustbar-scroll="next"]');
+    if (!inner || !prevBtn || !nextBtn) return;
+    var section = inner.closest('.trustbar');
+    var mq = window.matchMedia('(min-width: 768px) and (max-width: 1023px)');
+
+    function update() {
+      if (!mq.matches) {
+        prevBtn.hidden = true; nextBtn.hidden = true;
+        if (section) { section.classList.remove('is-start'); section.classList.remove('is-end'); }
+        return;
+      }
+      var maxScroll = inner.scrollWidth - inner.clientWidth;
+      var atStart = inner.scrollLeft <= 4;
+      var atEnd   = inner.scrollLeft >= maxScroll - 4;
+      var noScroll = maxScroll <= 4;
+      prevBtn.hidden = noScroll || atStart;
+      nextBtn.hidden = noScroll || atEnd;
+      if (section) {
+        section.classList.toggle('is-start', noScroll || atStart);
+        section.classList.toggle('is-end',   noScroll || atEnd);
+      }
+    }
+
+    function step(dir) {
+      inner.scrollBy({ left: dir * inner.clientWidth * 0.6, behavior: 'smooth' });
+    }
+    prevBtn.addEventListener('click', function(){ step(-1); });
+    nextBtn.addEventListener('click', function(){ step(1); });
+    inner.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(update);
+    update();
+  })();
+
+  // Responsive search placeholder — short on mobile, 2 items on tablet, 3 on desktop
   (function(){
     var input = document.querySelector('.header__search input');
     if (!input) return;
-    var mq = window.matchMedia('(max-width: 720px)');
+    var mobileMq = window.matchMedia('(max-width: 720px)');
+    var tabletMq = window.matchMedia('(min-width: 768px) and (max-width: 1023px)');
     function setPlaceholder() {
-      input.placeholder = mq.matches ? 'Produkte suchen…' : 'Suchen — Türklingel, Briefkasten, Sprechanlage…';
+      if (mobileMq.matches)       input.placeholder = 'Produkte suchen…';
+      else if (tabletMq.matches)  input.placeholder = 'Suchen — Türklingel, Briefkasten…';
+      else                        input.placeholder = 'Suchen — Türklingel, Briefkasten, Sprechanlage…';
     }
     setPlaceholder();
-    mq.addEventListener('change', setPlaceholder);
+    mobileMq.addEventListener('change', setPlaceholder);
+    tabletMq.addEventListener('change', setPlaceholder);
   })();
 
   // Search icon click — placeholder (search overlay/modal can be wired later)

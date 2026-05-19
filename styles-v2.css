@@ -1,6 +1,18 @@
 /* ============================================================
    Metzler — Edelstahl-Tuerklingel.de · Premium Homepage Redesign
    Built on the official Metzler Design System (v1.0)
+   ============================================================
+
+   BREAKPOINT CONTRACT
+   -------------------
+   Mobile   : ≤ 767px
+   Tablet   : 768px – 1023px
+   Desktop  : ≥ 1024px
+
+   New responsive rules MUST target one of these three tiers.
+   Legacy queries (≤720, ≤900, ≤1100, ≤1280) remain in place
+   for now but should be migrated section-by-section. Do not
+   add new queries with non-standard bounds.
    ============================================================ */
 
 /* ── Tokens ── */
@@ -474,6 +486,9 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .header__logo img { height: 24px; }
 }
 
+/* Tablet header block moved to end of file to win source-order
+   priority over the ≤900 block. See "TABLET HEADER" at bottom. */
+
 /* ============================================================
    DESKTOP LOCK (≥1024px) — explicit guarantees so mobile rules
    from any earlier media query can NEVER leak onto desktop.
@@ -562,6 +577,31 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 .header__nav a.is-featured {
   color: var(--teal);
   font-weight: 700;
+}
+
+/* "Alle" button inside the category strip — visible only on tablet
+   (768–1023). Hidden on mobile and desktop. */
+.header__nav-all {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  height: 36px;
+  padding: 0 14px;
+  background: var(--teal);
+  color: var(--white);
+  border-radius: var(--r-m);
+  font-size: var(--text-body-sm);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  flex: 0 0 auto;
+  transition: background 0.18s ease;
+}
+.header__nav-all:hover { background: var(--teal-hover); }
+.header__nav-all-icon {
+  width: 16px;
+  height: 13px;
+  display: block;
 }
 
 /* ============================================================
@@ -1039,8 +1079,9 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .hero-banner__copy { max-width: 620px; }
 }
 
-/* Mobile + small tablet: stack copy above product */
-@media (max-width: 1100px) {
+/* Mobile only: stack copy above product. Tablet (768–1023) keeps
+   the desktop side-by-side layout, tuned by the ≤1280 rule above. */
+@media (max-width: 767px) {
   .hero-banner {
     min-height: auto;
     flex-direction: column;
@@ -2233,10 +2274,12 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 }
 
 /* ============================================================
-   TRUST BAR — Mobile Horizontal Carousel (<768px)
-   Single-row swipeable rail with peek + scroll-snap
+   TRUST BAR — Mobile + Tablet Horizontal Carousel (≤1023px)
+   Single-row swipeable rail with peek + scroll-snap. Same
+   visual treatment across mobile and tablet — they share the
+   same need (cards don't fit in a clean grid sub-desktop).
    ============================================================ */
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
   .trustbar { padding-block: var(--sp-6); }
 
   .trustbar__inner {
@@ -2465,4 +2508,354 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .footer__quality-grid { grid-template-columns: 1fr; }
   .header__nav ul { gap: var(--sp-5); }
   .reviews__rating-num { font-size: 2.25rem; }
+}
+
+/* ============================================================
+   TABLET HEADER (768–1023px) — placed at end of file so it wins
+   source-order priority over the ≤900 / ≤1100 blocks above.
+   Top row mirrors desktop (logo + search + icons, no burger).
+   Strip below: "Alle" pill button + horizontally scrolling
+   category list. The "Alle" button opens the existing #mobileNav
+   drawer (wired via [data-nav-toggle] in script).
+   ============================================================ */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Unify vertical rhythm across the whole tablet range. Without
+     this, 901–1023 inherits the desktop 80px and there's a jump
+     at the 900/901 boundary. */
+  :root { --section-y: var(--sp-16); }
+
+  /* Section titles — scaled down from desktop's 46px so they don't
+     stretch awkwardly across the narrower tablet viewport. Sits
+     between desktop (46px) and mobile ≤640 (32px). */
+  .section-title,
+  .config h2,
+  .awards h2 { font-size: 2.25rem; }
+
+  .header__main {
+    grid-template-columns: auto 1fr auto !important;
+    gap: var(--sp-6) !important;
+    height: 72px !important;
+    padding-block: 0 !important;
+  }
+  .header__logo img { height: 28px; }
+  .header__search {
+    grid-column: auto !important;
+    order: 0 !important;
+    max-width: 846px !important;
+    padding-bottom: 0 !important;
+  }
+  .header__nav { display: block !important; }
+  /* Side padding inherits from .container (same as top header).
+     Internal gaps unified at --sp-5 (20px). */
+  .header__nav .container {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-5);
+  }
+  .header__nav-all { display: inline-flex; margin: 0; }
+  .header__nav ul {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    /* Distribute visible items evenly across the row — minimum gap
+       is --sp-5; extra space distributes between items so the last
+       item lands flush with the right edge. */
+    justify-content: space-between;
+    gap: var(--sp-5);
+    overflow: hidden;
+    flex-wrap: nowrap;
+  }
+  .header__nav li { margin: 0; padding: 0; }
+  .header__nav li[hidden] { display: none !important; }
+  .header__nav a { padding: 6px 0; }
+  .header__nav a { font-size: var(--text-body-sm); }
+
+  /* ── Hero banner ──
+     Push device and reddot as far right as possible (flush to
+     the viewport edge). Copy clamps so it never overlaps. */
+  .hero-banner__stage { left: 55%; right: 0; }
+  .hero-banner__poster {
+    transform: translateX(25%);
+    object-position: right center;
+  }
+  .hero-banner__copy { max-width: 560px; }
+  .hero-banner__title { max-width: 30ch; font-size: clamp(1.5rem, 2.6vw, 1.875rem); }
+  .hero-banner__body { max-width: 56ch; font-size: var(--text-body-sm); }
+  .hero-banner__ctas { max-width: 560px; }
+  /* Reddot award — sized to read as a credibility anchor without
+     competing with the device. Inset slightly so the badge text
+     ("reddot winner 2026") isn't clipped at the viewport edge. */
+  .hero-banner__reddot {
+    width: 26%;
+    max-width: 190px;
+    min-width: 140px;
+    bottom: calc(14% - 16px);
+    right: clamp(132px, calc(16vw - 8px), 212px);
+  }
+
+  /* ── Trust bar carousel ──
+     Card width chosen so 4 fit per viewport at 768 with the 5th
+     peeking — natural peek from overflow. */
+  .trustbar { position: relative; }
+  .trust { max-width: 220px; flex: 0 0 24%; padding-inline: var(--sp-5); }
+  .trustbar__inner { scroll-behavior: smooth; }
+
+  /* Edge fades — left & right. Visual signal that there's more
+     content beyond the visible band. JS toggles .is-start and
+     .is-end on .trustbar to fade out the corresponding gradient
+     when the user reaches that edge.
+
+     NOTE: the existing .trustbar::before (top hairline divider)
+     sets transform/height/max-width — must reset them here so
+     the fade renders full-height at the correct edge. */
+  .trustbar::before,
+  .trustbar::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: auto;
+    max-width: none;
+    transform: none;
+    width: 96px;
+    pointer-events: none;
+    z-index: 4;
+    transition: opacity 0.2s ease;
+  }
+  .trustbar::before {
+    left: 0;
+    right: auto;
+    background: linear-gradient(to left, rgba(245, 246, 250, 0) 0%, rgba(245, 246, 250, 0.95) 70%, rgba(245, 246, 250, 1) 100%);
+  }
+  .trustbar::after {
+    right: 0;
+    left: auto;
+    background: linear-gradient(to right, rgba(245, 246, 250, 0) 0%, rgba(245, 246, 250, 0.95) 70%, rgba(245, 246, 250, 1) 100%);
+  }
+  .trustbar.is-start::before { opacity: 0; }
+  .trustbar.is-end::after { opacity: 0; }
+
+  /* Right-edge scroll button — appears when content is scrollable
+     and the user has not yet reached the end. JS toggles [hidden]. */
+  .trustbar__scroll {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--r-m);
+    background: var(--white);
+    color: var(--teal);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12), 0 0 0 1px var(--graphite-300);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.18s ease, background 0.18s ease;
+  }
+  .trustbar__scroll--prev { left: 12px; }
+  .trustbar__scroll--next { right: 12px; }
+  .trustbar__scroll:hover { background: var(--paper-white); transform: translateY(-50%) scale(1.06); }
+  .trustbar__scroll svg { width: 28px; height: 28px; }
+  .trustbar__scroll[hidden] { display: none; }
+
+  /* ── Cats (Markenqualität) ──
+     Extend the mobile bento (currently capped at ≤900) up to
+     1023 so the entire tablet range gets the proven 3-module
+     stacked layout instead of the cramped desktop 11-tile grid. */
+  .cats { padding-block: var(--sp-12); }
+  .cats__head { margin-bottom: var(--sp-8); }
+  .cats__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-auto-rows: auto;
+    grid-template-areas:
+      "h1   h1 "
+      "t1   ls1"
+      "t1   sq1"
+      "h2   h2 "
+      "t2   ls2"
+      "t2   sq2"
+      "h3   h3 "
+      "t3   ls3";
+    gap: 10px;
+  }
+  .cat-card--c1, .cat-card--c2, .cat-card--c3,
+  .cat-card--c4, .cat-card--c5, .cat-card--c6, .cat-card--c7,
+  .cat-card--c8, .cat-card--c9, .cat-card--c10, .cat-card--c11 {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .cat-card--c5  { grid-area: h1;  aspect-ratio: 1.43; }
+  .cat-card--c2  { grid-area: t1; }
+  .cat-card--c1  { grid-area: ls1; aspect-ratio: 1.46; }
+  .cat-card--c6  { grid-area: sq1; aspect-ratio: 1.24; }
+  .cat-card--c3  { grid-area: h2;  aspect-ratio: 1.43; }
+  .cat-card--c4  { grid-area: t2; }
+  .cat-card--c8  { grid-area: ls2; aspect-ratio: 1.46; }
+  .cat-card--c9  { grid-area: sq2; aspect-ratio: 1.24; }
+  .cat-card--c10 { grid-area: h3;  aspect-ratio: 1.43; }
+  .cat-card--c7  { grid-area: t3; }
+  .cat-card--c11 { grid-area: ls3; aspect-ratio: 1.46; }
+  .cat-card picture { display: contents; }
+  .cat-card--c2 img { object-position: 18% center; }
+  .cat-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.55) 100%),
+      linear-gradient(180deg, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.75) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .cat-card__body { z-index: 2; }
+  /* Title styling matches desktop — relative position inside the
+     body, h2 size, teal-mint hover indicator line. Overrides the
+     mobile bento absolute/nowrap/ellipsis treatment. */
+  .cat-card__title {
+    position: relative;
+    inset: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    text-align: left;
+    color: var(--white);
+    font-weight: 700;
+    font-size: var(--text-h2);
+    line-height: 1.2;
+    letter-spacing: normal;
+    background: none;
+    padding: var(--sp-4) 0 0 0;
+    border-radius: 0;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    z-index: 2;
+  }
+  .cat-card__title::before {
+    display: block;
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 36px;
+    height: 2px;
+    background: var(--teal-mint);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .cat-card:hover .cat-card__title::before { transform: scaleX(1); }
+  .cat-card__badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    left: auto;
+    bottom: auto;
+    z-index: 3;
+  }
+
+  /* ── Why (Drei Gründe) ──
+     Extend the mobile 1-col stack to the full tablet range. */
+  .why__grid { grid-template-columns: 1fr; gap: var(--sp-8); }
+  .why__item { text-align: center; }
+
+  /* ── Awards ──
+     Stack to 1 column across the tablet range. Seals stay 2-col
+     so the badge row reads as a small grid, not a long stack.
+     Explicit symmetric padding-block so the section's top and
+     bottom whitespace match (defends against intermediate rules
+     that might add asymmetric margins). */
+  .awards { padding-block: var(--sp-16); }
+  .awards__top { grid-template-columns: 1fr; gap: var(--sp-12); }
+  .awards__seals { grid-template-columns: repeat(2, 1fr); }
+  .awards__siegel { width: 32%; right: 0; bottom: -8%; }
+  /* Gap inherited from desktop (--sp-5 = 20px) — no margin-inline:auto
+     here, which would force items apart inside flex. */
+  .awards__ctas { justify-content: center; text-align: center; }
+
+  /* ── FAQ ──
+     Stack contact box and FAQ list. Contact box must not stick
+     and is reordered AFTER the FAQ list so it reads as a natural
+     "still have questions?" closer rather than floating above
+     the questions. Same pattern as mobile (≤720). */
+  .faq__inner {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: 1fr;
+    gap: var(--sp-12);
+  }
+  .faq__inner > *:first-child { order: 2; }
+  .faq__inner > *:last-child { order: 1; }
+  .faq__support {
+    position: static;
+    top: auto;
+    max-width: none;
+    margin-inline: 0;
+  }
+
+  /* ── Reviews ──
+     Stack the section head so the rating sits below the title
+     instead of being squeezed (and clipped) at the right edge. */
+  .reviews__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-4);
+  }
+  .reviews__rating { align-self: flex-start; }
+  .reviews__rating-num { font-size: 32px; }
+  .reviews__rating-stars { height: 24px; }
+
+  /* ── Reviews tabs ──
+     Same carousel pattern as mobile: nowrap flex, horizontal
+     scroll, snap. Peek comes from natural tab overflow — no
+     forced trailing padding (which left empty space at end). */
+  .reviews__tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    position: relative;
+  }
+  .reviews__tabs::-webkit-scrollbar { display: none; }
+  .reviews__tab {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    padding: 10px 14px;
+    font-size: 13px;
+    gap: 8px;
+  }
+  .reviews__tab-logo { width: 16px; height: 16px; }
+  .reviews__tab-count { font-size: 11px; }
+
+  /* Credential row — bumped up from the desktop sizing because
+     the section is wider (1-col) on tablet, so the badge can
+     scale up without crowding adjacent content. Centered as a
+     block since the surrounding copy is also centered on tablet. */
+  .awards__credential {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    gap: var(--sp-6);
+    padding-top: 0;
+    padding-bottom: var(--sp-4);
+    margin-top: 0;
+    margin-inline: 0;
+    margin-bottom: var(--sp-6);
+  }
+  .awards__copy { text-align: left; }
+  .awards h2 { max-width: none; }
+  .awards__sub { max-width: none; }
+  .awards h2, .awards__sub { margin-inline: 0; }
+  .awards__badge { height: 120px; }
+  .awards__credential-text { padding-left: var(--sp-6); gap: 6px; text-align: left; }
+  .awards__credential-label { font-size: var(--text-body-sm); letter-spacing: 0.2em; }
+  .awards__credential-meta { font-size: var(--text-body); }
 }
