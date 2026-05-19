@@ -2296,9 +2296,8 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   :root { --section-y: var(--sp-16); }
   .topbar__claims li:nth-child(n+3) { display: none; }
 
-  /* Equalize the empty space above and below the "Markenqualität"
-     title — section padding-top matches .cats__head margin-bottom. */
-  .cats { padding-block: var(--sp-8); }
+  /* 48px top/bottom — matches the other mobile sections' rhythm. */
+  .cats { padding-block: var(--sp-12); }
   .cats__head { margin-bottom: var(--sp-8); }
   .header__main { grid-template-columns: auto 1fr auto; gap: var(--sp-3); }
   .header__search { grid-column: 1 / -1; order: 99; max-width: none; padding-bottom: var(--sp-3); }
