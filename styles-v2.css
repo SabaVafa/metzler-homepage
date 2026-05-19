@@ -1043,18 +1043,12 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .hero-banner {
     min-height: auto;
     flex-direction: column;
-    /* No padding-top so the dark band sits flush against the header.
-       Keep bottom padding so the CTAs have breathing room. */
-    padding-block: 0 var(--sp-10);
-    /* Solid background — drop the desktop radial light-wash so the
-       area below the device reads as a clean premium black. */
-    background: #0E0F12;
+    padding-block: var(--sp-10);
   }
-  /* Hide both decorative pseudos on mobile — the floor reflection
-     would bleed into the body text area, and the bottom hairline
-     adds visual noise that competes with the CTAs. */
-  .hero-banner::before,
-  .hero-banner::after { display: none; }
+  /* Hide the floor-reflection pseudo on mobile — it's anchored at the
+     bottom 40% of the section, which on the stacked mobile layout
+     lands behind the body text instead of beneath the device. */
+  .hero-banner::before { display: none; }
   .hero-banner__stage {
     position: relative;
     left: 0;
