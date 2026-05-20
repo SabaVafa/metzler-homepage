@@ -102,6 +102,10 @@
       <a href="#" class="header__logo" aria-label="Metzler Startseite">
         <img src="Logo/Metzler_Logo-rot-schwarz.svg" alt="Metzler" />
       </a>
+      <button class="header__kategorien" type="button" data-nav-toggle aria-controls="mobileNav" aria-expanded="false" aria-label="Kategorien">
+        <img class="header__kategorien-icon" src="ICONS/menu.svg" alt="" aria-hidden="true" />
+        <span class="header__kategorien-label">Kategorien</span>
+      </button>
       <div class="header__search">
         <svg><use href="#i-search"/></svg>
         <input type="search" placeholder="Suchen — Türklingel, Briefkasten, Sprechanlage…" />
@@ -509,6 +513,42 @@
         <p class="review__quote">„Ich vergleiche viel — kein anderer Hersteller in Deutschland kombiniert Material, Verarbeitung und Service auf diesem Niveau. Den Preis ist es wert."</p>
         <div class="review__city">vor 22 Stunden</div>
       </article>
+      <article class="review">
+        <img class="review__platform" src="Reviews/Google.svg" alt="Google" title="Bewertung von Google" />
+        <div class="review__head">
+          <span class="review__avatar">LK</span>
+          <div class="review__info">
+            <img class="review__stars" src="ICONS/StarRating.svg" alt="5 von 5 Sternen" />
+            <span class="review__name">L. Krämer</span>
+          </div>
+        </div>
+        <p class="review__quote">„Schneller Versand, makellose Verarbeitung und persönliche Beratung am Telefon. Genau so muss Service aussehen. Klare Empfehlung."</p>
+        <div class="review__city">vor 1 Tag</div>
+      </article>
+      <article class="review">
+        <img class="review__platform" src="Reviews/TrustedShop.svg" alt="Trusted Shops" title="Bewertung von Trusted Shops" />
+        <div class="review__head">
+          <span class="review__avatar">SR</span>
+          <div class="review__info">
+            <img class="review__stars" src="ICONS/StarRating.svg" alt="5 von 5 Sternen" />
+            <span class="review__name">S. Reinhardt</span>
+          </div>
+        </div>
+        <p class="review__quote">„Briefkasten kam wie bestellt, top verpackt und keine Kratzer. Montage gut erklärt in der Anleitung. Hochwertige Wertarbeit — würde wieder kaufen."</p>
+        <div class="review__city">vor 2 Tagen</div>
+      </article>
+      <article class="review">
+        <img class="review__platform" src="Reviews/Google.svg" alt="Google" title="Bewertung von Google" />
+        <div class="review__head">
+          <span class="review__avatar">JW</span>
+          <div class="review__info">
+            <img class="review__stars" src="ICONS/StarRating.svg" alt="5 von 5 Sternen" />
+            <span class="review__name">J. Weber</span>
+          </div>
+        </div>
+        <p class="review__quote">„Edelstahl wirkt massiv und matt gebürstet, genau wie auf den Bildern. Gravur sauber. Lieferzeit war zwei Wochen — das war es absolut wert."</p>
+        <div class="review__city">vor 3 Tagen</div>
+      </article>
     </div>
     <div class="reviews__cta">
       <a class="tlink" href="#">Weitere Bewertungen laden <svg style="width:20px;height:20px"><use href="#i-chevron-down"/></svg></a>
@@ -723,11 +763,36 @@
     var panel   = document.getElementById('mobileNav');
     if (!toggles.length || !panel) return;
     function setExpanded(v) { toggles.forEach(function(t){ t.setAttribute('aria-expanded', v ? 'true' : 'false'); }); }
-    function open() { panel.classList.add('is-open'); panel.setAttribute('aria-hidden','false'); setExpanded(true); document.body.style.overflow='hidden'; }
+    function syncTop() {
+      // Drawer panel sits below whatever portion of the header is
+      // currently visible. Set its top to header.bottom so it never
+      // overlaps the sticky chrome (topbar + header row + strip).
+      var header = document.querySelector('.header');
+      var inner = panel.querySelector('.mobile-nav__panel');
+      if (header && inner) inner.style.top = Math.max(0, header.getBoundingClientRect().bottom) + 'px';
+    }
+    function open() { syncTop(); panel.classList.add('is-open'); panel.setAttribute('aria-hidden','false'); setExpanded(true); document.body.style.overflow='hidden'; }
     function close() { panel.classList.remove('is-open'); panel.setAttribute('aria-hidden','true'); setExpanded(false); document.body.style.overflow=''; }
-    toggles.forEach(function(t){ t.addEventListener('click', open); });
+    function toggle() { if (panel.classList.contains('is-open')) close(); else open(); }
+    toggles.forEach(function(t){ t.addEventListener('click', toggle); });
     panel.querySelectorAll('[data-close], a').forEach(function(el){ el.addEventListener('click', close); });
     document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  })();
+
+  // Desktop scroll-shrink: when the user scrolls, hide the
+  // category strip and reveal the compact "Kategorien" pill.
+  // Toggles body.is-scrolled at any scroll position.
+  (function(){
+    var threshold = 0;
+    var ticking = false;
+    function update() {
+      document.body.classList.toggle('is-scrolled', window.scrollY > threshold);
+      ticking = false;
+    }
+    window.addEventListener('scroll', function(){
+      if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+    update();
   })();
 
   // Tablet nav: hide categories that don't fit. Hidden items remain

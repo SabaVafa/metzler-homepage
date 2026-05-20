@@ -494,11 +494,19 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
    from any earlier media query can NEVER leak onto desktop.
    ============================================================ */
 @media (min-width: 1024px) {
-  /* Mobile-only chrome is forced hidden on desktop */
+  /* Mobile-only chrome is forced hidden on desktop. mobile-nav
+     drawer is NOT force-hidden — it uses visibility/opacity for
+     its own animation (visibility:hidden by default, visible on
+     .is-open), so the desktop "Kategorien" button can open it. */
   .header__burger,
   .header__search-icon,
-  .mobile-bar,
-  .mobile-nav { display: none !important; }
+  .mobile-bar { display: none !important; }
+
+  /* Scrolled state — body gains .is-scrolled when scrollY exceeds
+     a threshold. The category strip hides and the compact
+     "Kategorien" pill appears in the top row as its replacement. */
+  body.is-scrolled .header__nav { display: none !important; }
+  body.is-scrolled .header__kategorien { display: inline-flex; }
 
   /* Desktop horizontal nav is forced visible */
   .header__nav { display: block !important; }
@@ -521,6 +529,48 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 
   /* Body padding-bottom (mobile bar safe zone) removed */
   body { padding-bottom: 0 !important; }
+
+  /* Re-flow header top row when scrolled — must come AFTER the
+     desktop lock .header__main override above so it wins on
+     source order despite !important on both sides. */
+  body.is-scrolled .header__main {
+    grid-template-columns: auto auto 1fr auto !important;
+    gap: var(--sp-5) !important;
+  }
+
+  /* Desktop drawer — anchored below the sticky header (top: 80px)
+     and no backdrop dim, so the rest of the page stays fully
+     visible. Drawer keeps its default slide-from-left animation. */
+  /* Let clicks outside the panel reach underlying elements (e.g.
+     the Kategorien button) so it can act as a toggle. Re-enable
+     pointer events only on the panel itself. */
+  .mobile-nav { pointer-events: none; }
+  .mobile-nav__panel { top: 80px; pointer-events: auto; }
+  .mobile-nav__backdrop { display: none; }
+  .mobile-nav__head { display: none; }
+
+  /* Drawer rows on desktop: layout text on the left and a right
+     chevron on the right of each link. */
+  .mobile-nav a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-5);
+  }
+  .mobile-nav a::after {
+    content: "";
+    flex: 0 0 auto;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid var(--graphite-500);
+    border-top: 2px solid var(--graphite-500);
+    transform: rotate(45deg);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .mobile-nav a:hover::after {
+    border-color: var(--teal);
+    transform: rotate(45deg) translate(2px, -2px);
+  }
 }
 .icon-btn {
   width: 52px;
@@ -579,6 +629,29 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   font-weight: 700;
 }
 
+/* "Kategorien" button in the top header row — visible only on
+   desktop when the page is scrolled (body.is-scrolled). At rest,
+   the full category strip is shown below; on scroll, the strip
+   hides and this button replaces it as a compact entry point. */
+.header__kategorien {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  padding: 0 18px;
+  background: var(--teal);
+  color: var(--white);
+  border-radius: var(--r-m);
+  font-size: var(--text-body);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.18s ease;
+}
+.header__kategorien:hover { background: var(--teal-hover); }
+.header__kategorien-icon { width: 18px; height: 15px; display: block; }
+
 /* "Alle" button inside the category strip — visible only on tablet
    (768–1023). Hidden on mobile and desktop. */
 .header__nav-all {
@@ -604,100 +677,8 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   display: block;
 }
 
-/* ============================================================
-   2. Hero
-   ============================================================ */
-.hero {
-  position: relative;
-  min-height: 640px;
-  background: var(--teal-dark);
-  color: var(--white);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-}
-.hero__media {
-  position: absolute;
-  inset: 0;
-}
-.hero__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.55;
-}
-.hero__media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, rgba(1,41,42,0.82) 0%, rgba(1,41,42,0.35) 60%, rgba(1,41,42,0) 100%),
-    linear-gradient(180deg, rgba(1,41,42,0.0) 60%, rgba(1,41,42,0.6) 100%);
-}
-.hero__inner {
-  position: relative;
-  z-index: 1;
-  padding-block: var(--sp-20);
-}
-.hero__eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-2);
-  padding: 6px 12px;
-  background: rgba(92, 219, 211, 0.14);
-  color: var(--teal-mint);
-  border-radius: var(--r-pill);
-  font-size: var(--text-caption);
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  margin-bottom: var(--sp-6);
-}
-.hero h1 {
-  font-size: clamp(2rem, 4.6vw, 3.75rem);
-  line-height: 1.1;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  max-width: 18ch;
-}
-.hero h1 em {
-  color: var(--teal-mint);
-  font-style: normal;
-}
-.hero__sub {
-  margin-top: var(--sp-6);
-  font-size: var(--text-h4);
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.84);
-  max-width: 52ch;
-}
-.hero__ctas {
-  display: flex;
-  gap: var(--sp-4);
-  margin-top: var(--sp-8);
-  flex-wrap: wrap;
-}
-.hero__meta {
-  display: flex;
-  gap: var(--sp-8);
-  margin-top: var(--sp-12);
-  flex-wrap: wrap;
-}
-.hero__meta-item {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.hero__meta-num {
-  font-size: var(--text-h2);
-  font-weight: 700;
-  color: var(--white);
-}
-.hero__meta-label {
-  font-size: var(--text-caption);
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 0.06em;
-}
+/* Legacy .hero / .hero__* block removed — the homepage now uses
+   .hero-banner instead. */
 
 /* ============================================================
    3. Trust Bar
@@ -1143,88 +1124,8 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   }
 }
 
-/* ============================================================
-   5. Configurator Teaser
-   ============================================================ */
-.config {
-  background: var(--teal-dark);
-  color: var(--white);
-  position: relative;
-  overflow: hidden;
-}
-.config::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 80% 20%, rgba(92, 219, 211, 0.12), transparent 50%),
-    radial-gradient(circle at 20% 80%, rgba(1, 109, 117, 0.18), transparent 55%);
-  pointer-events: none;
-}
-.config__inner {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-}
-.config .eyebrow { color: var(--teal-mint); }
-.config h2 {
-  font-size: var(--text-display);
-  line-height: var(--lh-display);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  max-width: 22ch;
-  margin: 0 auto;
-}
-.config__sub {
-  margin: var(--sp-5) auto 0;
-  font-size: var(--text-h4);
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.78);
-  max-width: 56ch;
-}
-.config__steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--sp-6);
-  margin-top: var(--sp-12);
-  text-align: left;
-}
-.config__step {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--r-l);
-  padding: var(--sp-8);
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-3);
-  transition: border-color 0.2s ease, background 0.2s ease;
-}
-.config__step:hover {
-  border-color: var(--teal-mint);
-  background: rgba(255, 255, 255, 0.07);
-}
-.config__step-num {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: var(--r-pill);
-  background: var(--teal);
-  color: var(--white);
-  font-weight: 700;
-  font-size: var(--text-body-sm);
-}
-.config__step h3 {
-  font-size: var(--text-h3);
-  font-weight: 700;
-  color: var(--white);
-}
-.config__step p {
-  color: rgba(255, 255, 255, 0.72);
-  font-size: var(--text-body-sm);
-}
-.config__cta { margin-top: var(--sp-12); }
+/* Legacy .config / .config__* block removed — the Configurator
+   Teaser section was dropped from the page. */
 
 /* ============================================================
    6. Category Grid
@@ -1591,67 +1492,8 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .awards__siegel { width: 32%; right: 0; bottom: -8%; }
 }
 
-/* ============================================================
-   9. Editorial Gallery
-   ============================================================ */
-.gallery__head {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  gap: var(--sp-8);
-  margin-bottom: var(--sp-12);
-}
-.gallery__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 280px;
-  gap: var(--sp-4);
-}
-.gallery__tile {
-  position: relative;
-  border-radius: var(--r-l);
-  overflow: hidden;
-  cursor: pointer;
-  isolation: isolate;
-}
-.gallery__tile img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-.gallery__tile:hover img { transform: scale(1.05); }
-.gallery__tile::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.65) 100%);
-}
-.gallery__caption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: var(--sp-5);
-  color: var(--white);
-  z-index: 1;
-}
-.gallery__caption .style {
-  font-size: var(--text-caption);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--teal-mint);
-  font-weight: 700;
-}
-.gallery__caption .product {
-  font-size: var(--text-h4);
-  font-weight: 700;
-  margin-top: 4px;
-}
-.gallery__tile--wide { grid-column: span 2; }
-.gallery__tile--tall { grid-row: span 2; }
+/* Legacy .gallery__* block removed — the Editorial Gallery
+   section was dropped from the page. */
 
 /* ============================================================
    10. Reviews
@@ -2363,12 +2205,8 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .header__main { grid-template-columns: auto 1fr auto; gap: var(--sp-3); }
   .header__search { grid-column: 1 / -1; order: 99; max-width: none; padding-bottom: var(--sp-3); }
   .header__main { height: auto; padding-block: var(--sp-3); }
-  .xdm10__grid,
   .awards__top,
   .faq__inner { grid-template-columns: 1fr; gap: var(--sp-12); }
-  .xdm10__media { order: -1; }
-  .xdm10__media img { max-height: 360px; }
-  .config__steps { grid-template-columns: 1fr; }
   /* ============================================================
      MOBILE BENTO — built from scratch using grid-template-areas.
      Three Figma modules stacked. Each module = full-width hero +
@@ -2500,9 +2338,6 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .why__grid { grid-template-columns: 1fr; gap: var(--sp-8); }
   .why__item { text-align: center; }
   .awards__seals { grid-template-columns: repeat(2, 1fr); }
-  .gallery__grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 220px; }
-  .gallery__tile--wide,
-  .gallery__tile--tall { grid-column: span 1; grid-row: span 1; }
   /* .reviews__head is display:flex by default — gap only. */
   .reviews__head { gap: var(--sp-5); }
   .reviews__grid { grid-template-columns: 1fr; }
@@ -2516,7 +2351,6 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   :root { --section-y: var(--sp-12); }
   .topbar { display: none; }
   /* (cats__grid sized exclusively by the 900px @media — no override here) */
-  .gallery__grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
   .footer__top,
   .footer__quality-grid { grid-template-columns: 1fr; }
   .header__nav ul { gap: var(--sp-5); }
@@ -2530,7 +2364,6 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
    ============================================================ */
 @media (max-width: 767px) {
   .section-title,
-  .config h2,
   .awards h2 { font-size: 2rem; }
 }
 
@@ -2552,7 +2385,6 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
      stretch awkwardly across the narrower tablet viewport. Sits
      between desktop (46px) and mobile (32px). */
   .section-title,
-  .config h2,
   .awards h2 { font-size: 2.25rem; }
 
   /* Header — this block lives at the end of the file and wins
@@ -2830,7 +2662,9 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 
   /* ── Reviews ──
      Stack the section head so the rating sits below the title
-     instead of being squeezed (and clipped) at the right edge. */
+     instead of being squeezed (and clipped) at the right edge.
+     Review cards render in a 2-column grid on tablet to use the
+     extra horizontal space. */
   .reviews__head {
     flex-direction: column;
     align-items: flex-start;
@@ -2839,6 +2673,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .reviews__rating { align-self: flex-start; }
   .reviews__rating-num { font-size: 32px; }
   .reviews__rating-stars { height: 24px; }
+  .reviews__grid { grid-template-columns: repeat(2, 1fr); }
 
   /* ── Reviews tabs ──
      Same carousel pattern as mobile: nowrap flex, horizontal
@@ -2888,4 +2723,48 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .awards__credential-text { padding-left: var(--sp-6); gap: 6px; text-align: left; }
   .awards__credential-label { font-size: var(--text-body); letter-spacing: 0.2em; }
   .awards__credential-meta { font-size: var(--text-h4); }
+
+  /* Header is permanently sticky on tablet — pure CSS, no morph,
+     no JS-driven swap. Stays pinned to the top in both scroll
+     directions. */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    background: var(--white);
+  }
+
+  /* Topbar — show only the first two claims + both right-side
+     links. Hide claims 3, 4, 5 (10 Jahre Garantie, Trusted Shops,
+     Kauf auf Rechnung) to keep the bar uncluttered on tablet. */
+  .topbar__claims li:nth-child(n+3) { display: none; }
+
+  /* ── Drawer styling (matches desktop) ──
+     Anchored below the tablet header (72px), no backdrop dim,
+     no head bar, items with right chevron. Triggered by the
+     existing "Alle" button in the category strip. */
+  .mobile-nav { pointer-events: none; }
+  .mobile-nav__panel { top: 72px; pointer-events: auto; }
+  .mobile-nav__backdrop { display: none; }
+  .mobile-nav__head { display: none; }
+  .mobile-nav a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-5);
+  }
+  .mobile-nav a::after {
+    content: "";
+    flex: 0 0 auto;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid var(--graphite-500);
+    border-top: 2px solid var(--graphite-500);
+    transform: rotate(45deg);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .mobile-nav a:hover::after {
+    border-color: var(--teal);
+    transform: rotate(45deg) translate(2px, -2px);
+  }
 }
