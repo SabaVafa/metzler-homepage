@@ -119,55 +119,85 @@ Container side-padding: `clamp(24px, 4vw, 56px)` (tightens at narrow viewports).
 
 ## Components
 
+> **Devices column legend:** ▣ Mobile · ◆ Tablet · ● Desktop. A symbol means the component is rendered/visible at that breakpoint.
+
 ### Buttons
 
-Base selector: `.btn` — 48px tall, 24px horizontal padding, `--r-m` radius, 700 weight body text.
+Base selector: `.btn` — 48px tall, 24px horizontal padding, `--r-m` radius, 700 weight body text. **Devices: ▣ ◆ ●** (universal — appears in hero CTAs, awards CTAs, FAQ, footer everywhere).
 
-| Selector                | Style                                            |
-| ----------------------- | ------------------------------------------------ |
-| `.btn--primary`         | Teal fill, white text. Hover → `--teal`.         |
-| `.btn--secondary`       | Transparent + 1.5px teal border, teal text.      |
-| `.btn--secondary-light` | Transparent + 1.5px white border, white text.    |
-| `.btn--arrow`           | Adds chevron, reduces right padding.             |
-| `.btn--lg`              | 56px tall, larger padding + `--text-h4` font.    |
+| Selector                | Style                                            | Devices  |
+| ----------------------- | ------------------------------------------------ | -------- |
+| `.btn--primary`         | Teal fill, white text. Hover → `--teal`.         | ▣ ◆ ●    |
+| `.btn--secondary`       | Transparent + 1.5px teal border, teal text.      | ▣ ◆ ●    |
+| `.btn--secondary-light` | Transparent + 1.5px white border, white text.    | ▣ ◆ ●    |
+| `.btn--arrow`           | Adds chevron, reduces right padding.             | ▣ ◆ ●    |
+| `.btn--lg`              | 56px tall, larger padding + `--text-h4` font.    | ▣ ◆ ●    |
 
 ### Text links
 
-`.tlink` — inline-flex teal link with a 1.5px underline accent. Modifier `.tlink--mint` for dark backgrounds.
+`.tlink` — inline-flex teal link with a 1.5px underline accent. Modifier `.tlink--mint` for dark backgrounds (awards section). **Devices: ▣ ◆ ●**
 
 ### Icon button
 
 `.icon-btn` — 52×52 pill-shaped wrapper for SVG icons (cart, profile). 28×28 glyph inside.
 
+**Devices: ▣ ◆ ●** — sizing differs:
+- Mobile (`≤720`): collapses to 48×48 with 22×22 glyphs.
+- Tablet + Desktop: 52×52 with 28×28 glyphs (default).
+
 ### Trust badge
 
 `.trust` — vertical stack with framed icon + title + subtitle. Used in the trustbar. Hairline separator between siblings via `.trust + .trust::before`.
 
+**Devices: ▣ ◆ ●** — layout differs:
+- Mobile / Tablet (`≤1023`): horizontal scrollable carousel; cards `flex 0 0 22–24%`, prev/next arrows + edge fades on tablet.
+- Desktop: static 6-column grid.
+
 ### Category card
 
-`.cat-card` — image-fill card with overlay scrim and title text. Per-card modifiers `.cat-card--c1` through `.cat-card--c11` set explicit grid placement (desktop) or grid-area (mobile bento). Variants:
+`.cat-card` — image-fill card with overlay scrim and title text. Per-card modifiers `.cat-card--c1` through `.cat-card--c11`.
+
+**Devices: ▣ ◆ ●** — layout differs:
+- Mobile / Tablet (`≤1023`): mobile bento via `grid-template-areas` — 3 stacked modules of full-width hero + 2-col row.
+- Desktop: 4×6 grid with explicit per-card `grid-column` / `grid-row` placement.
+
+Variants (universal):
 - `.cat-card__discount` — top-left red pill ("5% Rabatt", "10% Rabatt").
-- `.cat-card__title::before` — animated teal-mint underline on hover.
+- `.cat-card__title::before` — animated teal-mint underline on hover (desktop only; hidden on touch to avoid sticky-press visual).
 
 ### Review card
 
 `.review` — white card with platform logo (top-right), avatar, stars, name, quote, timestamp. Border + 8px radius.
 
+**Devices: ▣ ◆ ●** — grid layout differs:
+- Mobile (`≤900`): 1 column.
+- Tablet (`768–1023`): 2 columns.
+- Desktop: 3 columns.
+
 ### Reviews tabs
 
 `.reviews__tabs` — segmented control. Outer `.reviews__tabs`: 8px radius, white background, hairline border. Inner `.reviews__tab`: 6px radius (concentric), transparent base, white when `[aria-selected="true"]`.
 
+**Devices: ▣ ◆ ●** — layout differs:
+- Mobile + Tablet (`≤1023`): nowrap horizontal scroll with scroll-snap.
+- Desktop: full segmented bar.
+
 ### Hero chip
 
-`.hero-chip` — pill badge used in the hero ("POWERED BY HIKVISION", "DESIGNED IN GERMANY"). 28px tall, 12px padding, `--r-s` radius, uppercase caption.
+`.hero-chip` — pill badge used in the hero ("POWERED BY HIKVISION", "DESIGNED IN GERMANY"). 28px tall, 12px padding, `--r-s` radius, uppercase caption. **Devices: ▣ ◆ ●**
 
 ### Awards credential
 
-`.awards__credential` — paired badge (medallion image) + text block (label + meta) anchored above the awards headline. Sizes scale up at desktop (badge 128px) and tablet (148px).
+`.awards__credential` — paired badge (medallion image) + text block (label + meta) anchored above the awards headline.
+
+**Devices: ▣ ◆ ●** — sizing scales:
+- Mobile: 88px badge, 12/14px label/meta (defaults).
+- Tablet: 148px badge, 16/18px label/meta.
+- Desktop: 128px badge, 14/16px label/meta.
 
 ### Hairline separator
 
-Used in trustbar between cards and in the trust bar top divider: linear gradient with `--graphite-300`.
+Used in trustbar between cards and the top divider: linear gradient with `--graphite-300`. **Devices: ◆ ●** (mobile carousel re-positions it; not used as a section divider on mobile).
 
 ---
 
