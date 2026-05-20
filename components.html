@@ -422,6 +422,59 @@
     </div>
   </section>
 
+  <!-- ─── SEARCH BAR ─── -->
+  <section class="ref-section">
+    <h2 class="ref-section-title">Search bar
+      <span class="devices">
+        <span class="device-tag device-tag--tablet"><svg><use href="#d-tablet"/></svg>Tablet</span>
+        <span class="device-tag device-tag--desktop"><svg><use href="#d-desktop"/></svg>Desktop</span>
+      </span>
+    </h2>
+    <p class="ref-section-desc">Selector: <code>.header__search</code>. Lives in the header on tablet and desktop. On mobile (<code>≤767</code>) it's replaced by a search-icon button in <code>.header__left-actions</code>.</p>
+
+    <div class="ref-block">
+      <div class="ref-label">Tablet — 2-item placeholder
+        <span class="ref-block-tags">
+          <span class="device-tag device-tag--tablet"><svg><use href="#d-tablet"/></svg>T</span>
+        </span>
+      </div>
+      <div class="header__search" style="max-width: 560px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/>
+          <line x1="21" y1="21" x2="16.5" y2="16.5"/>
+        </svg>
+        <input type="search" placeholder="Suchen — Türklingel, Briefkasten…" />
+      </div>
+    </div>
+
+    <div class="ref-block">
+      <div class="ref-label">Desktop — 3-item placeholder
+        <span class="ref-block-tags">
+          <span class="device-tag device-tag--desktop"><svg><use href="#d-desktop"/></svg>D</span>
+        </span>
+      </div>
+      <div class="header__search" style="max-width: 846px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/>
+          <line x1="21" y1="21" x2="16.5" y2="16.5"/>
+        </svg>
+        <input type="search" placeholder="Suchen — Türklingel, Briefkasten, Sprechanlage…" />
+      </div>
+    </div>
+
+    <div class="ref-block">
+      <div class="ref-label">Focus state (tab into the field)</div>
+      <div class="header__search" style="max-width: 560px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/>
+          <line x1="21" y1="21" x2="16.5" y2="16.5"/>
+        </svg>
+        <input type="search" placeholder="Klick mich an oder Tab" autofocus />
+      </div>
+      <p style="font-size: var(--text-body-sm); color: var(--graphite-500); margin-top: var(--sp-3);">Border becomes <code>--teal</code> with a 3px <code>--teal-10</code> focus ring.</p>
+    </div>
+  </section>
+
   <!-- ─── HERO CHIPS ─── -->
   <section class="ref-section">
     <h2 class="ref-section-title">Hero chips

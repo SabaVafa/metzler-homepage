@@ -182,6 +182,27 @@ Variants (universal):
 - Mobile + Tablet (`≤1023`): nowrap horizontal scroll with scroll-snap.
 - Desktop: full segmented bar.
 
+### Search bar
+
+`.header__search` — search input with an inset magnifier icon at the left. Lives in the header.
+
+| Property | Value |
+| --- | --- |
+| Height | 44px |
+| Background | `--paper-white` |
+| Border | 1px solid `--graphite-300` |
+| Radius | `--r-l` (8px) |
+| Padding | `0 20px 0 44px` (left padding reserves space for the icon) |
+| Icon | 18×18, color `--graphite-500`, absolute-positioned 16px from the left |
+| Focus state | Border becomes `--teal`, 3px `--teal-10` ring via `box-shadow` |
+| Max-width | `846px`, justified center inside its grid cell |
+
+**Devices: ◆ ●** — placeholder text differs:
+- Tablet (`768–1023`): `Suchen — Türklingel, Briefkasten…` (2 items)
+- Desktop (`≥1024`): `Suchen — Türklingel, Briefkasten, Sprechanlage…` (3 items)
+
+On mobile (`≤767`) the bar is **hidden** and replaced by a search-icon button (`.header__search-icon`) inside `.header__left-actions`. When clicked, it would open a search overlay (currently stubbed in JS).
+
 ### Hero chip
 
 `.hero-chip` — pill badge used in the hero ("POWERED BY HIKVISION", "DESIGNED IN GERMANY"). 28px tall, 12px padding, `--r-s` radius, uppercase caption. **Devices: ▣ ◆ ●**
