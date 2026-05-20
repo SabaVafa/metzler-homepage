@@ -138,21 +138,58 @@
     .device-tag {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      font-size: 11px;
+      gap: 6px;
+      font-size: 12px;
       font-weight: 700;
-      letter-spacing: 0.04em;
-      padding: 3px 8px;
+      letter-spacing: 0.02em;
+      padding: 6px 12px;
       border-radius: var(--r-pill);
-      background: var(--paper-white);
+      background: var(--white);
       color: var(--graphite-500);
-      border: 1px solid var(--graphite-300);
-      text-transform: uppercase;
+      border: 1.5px solid var(--graphite-300);
+      transition: all 0.18s ease;
     }
-    .device-tag--on {
+    .device-tag svg {
+      width: 16px;
+      height: 16px;
+      stroke-width: 2;
+      flex-shrink: 0;
+    }
+    .device-tag--mobile {
+      background: #fef3c7;
+      color: #92400e;
+      border-color: #fbbf24;
+    }
+    .device-tag--tablet {
+      background: #dbeafe;
+      color: #1e40af;
+      border-color: #60a5fa;
+    }
+    .device-tag--desktop {
       background: var(--teal-10);
       color: var(--teal);
-      border-color: var(--teal-10);
+      border-color: var(--teal);
+    }
+    .device-tag--off {
+      opacity: 0.25;
+      filter: grayscale(0.8);
+    }
+
+    /* Inline tags inside ref-blocks (per-variant device usage) */
+    .ref-block-tags {
+      display: inline-flex;
+      gap: 6px;
+      margin-left: var(--sp-3);
+      vertical-align: middle;
+    }
+    .ref-block-tags .device-tag {
+      font-size: 10px;
+      padding: 3px 8px;
+      gap: 4px;
+    }
+    .ref-block-tags .device-tag svg {
+      width: 12px;
+      height: 12px;
     }
 
     /* Cat-card demo (simplified — actual cards rely on real images) */
@@ -183,24 +220,43 @@
   </style>
 </head>
 <body>
+  <!-- SVG icon sprite for device tags -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="d-mobile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="7" y="2" width="10" height="20" rx="2"/>
+        <line x1="11" y1="18" x2="13" y2="18"/>
+      </symbol>
+      <symbol id="d-tablet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="4" y="2" width="16" height="20" rx="2"/>
+        <line x1="11" y1="18" x2="13" y2="18"/>
+      </symbol>
+      <symbol id="d-desktop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="4" width="20" height="13" rx="2"/>
+        <line x1="8" y1="21" x2="16" y2="21"/>
+        <line x1="12" y1="17" x2="12" y2="21"/>
+      </symbol>
+    </defs>
+  </svg>
+
   <h1 class="ref-h1">Metzler Components</h1>
   <p class="ref-sub">Visual reference for the design tokens and reusable UI patterns defined in <code>styles-v2.css</code>. Open this file alongside <code>COMPONENTS.md</code>.</p>
 
   <div class="ref-block" style="display: flex; align-items: center; gap: var(--sp-4); flex-wrap: wrap; background: var(--paper-white);">
     <strong style="font-size: var(--text-body-sm);">Device legend:</strong>
-    <span class="device-tag device-tag--on">▣ Mobile (≤767px)</span>
-    <span class="device-tag device-tag--on">◆ Tablet (768–1023px)</span>
-    <span class="device-tag device-tag--on">● Desktop (≥1024px)</span>
-    <span style="font-size: var(--text-body-sm); color: var(--graphite-500);">Tags below each component show which breakpoints it's rendered at.</span>
+    <span class="device-tag device-tag--mobile"><svg><use href="#d-mobile"/></svg>Mobile&nbsp;<span style="opacity:0.7;font-weight:500">(≤767px)</span></span>
+    <span class="device-tag device-tag--tablet"><svg><use href="#d-tablet"/></svg>Tablet&nbsp;<span style="opacity:0.7;font-weight:500">(768–1023px)</span></span>
+    <span class="device-tag device-tag--desktop"><svg><use href="#d-desktop"/></svg>Desktop&nbsp;<span style="opacity:0.7;font-weight:500">(≥1024px)</span></span>
+    <span style="font-size: var(--text-body-sm); color: var(--graphite-500); flex-basis: 100%;">Each variant below carries pill tags showing the breakpoints it's rendered at.</span>
   </div>
 
   <!-- ─── COLORS ─── -->
   <section class="ref-section">
     <h2 class="ref-section-title">Colors
       <span class="devices">
-        <span class="device-tag device-tag--on">▣</span>
-        <span class="device-tag device-tag--on">◆</span>
-        <span class="device-tag device-tag--on">●</span>
+        <span class="device-tag device-tag--mobile"><svg><use href="#d-mobile"/></svg>Mobile</span>
+        <span class="device-tag device-tag--tablet"><svg><use href="#d-tablet"/></svg>Tablet</span>
+        <span class="device-tag device-tag--desktop"><svg><use href="#d-desktop"/></svg>Desktop</span>
       </span>
     </h2>
     <p class="ref-section-desc">All colors are exposed as CSS custom properties on <code>:root</code>. Tokens are universal across all viewports.</p>
@@ -240,12 +296,33 @@
   <section class="ref-section">
     <h2 class="ref-section-title">Typography
       <span class="devices">
-        <span class="device-tag device-tag--on">▣</span>
-        <span class="device-tag device-tag--on">◆</span>
-        <span class="device-tag device-tag--on">●</span>
+        <span class="device-tag device-tag--mobile"><svg><use href="#d-mobile"/></svg>Mobile</span>
+        <span class="device-tag device-tag--tablet"><svg><use href="#d-tablet"/></svg>Tablet</span>
+        <span class="device-tag device-tag--desktop"><svg><use href="#d-desktop"/></svg>Desktop</span>
       </span>
     </h2>
-    <p class="ref-section-desc">Font: <code>Helvetica Neue, Helvetica, Arial, sans-serif</code>. Use the token, not raw rem. Section titles scale per breakpoint: <strong>32px mobile · 36px tablet · 46px desktop</strong>.</p>
+    <p class="ref-section-desc">Font: <code>Helvetica Neue, Helvetica, Arial, sans-serif</code>. Use the token, not raw rem. <strong>Section titles scale per breakpoint:</strong></p>
+
+    <div class="ref-block">
+      <div class="ref-label">Section title — responsive</div>
+      <div style="display: grid; gap: var(--sp-3);">
+        <div style="display: flex; align-items: baseline; gap: var(--sp-4);">
+          <span class="device-tag device-tag--mobile" style="min-width: 100px"><svg><use href="#d-mobile"/></svg>Mobile</span>
+          <span style="font-size: 2rem; font-weight: 700; letter-spacing: -0.01em;">Markenqualität</span>
+          <span style="font-size: var(--text-caption); color: var(--graphite-500); font-family: ui-monospace, monospace;">32px / 2rem</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: var(--sp-4);">
+          <span class="device-tag device-tag--tablet" style="min-width: 100px"><svg><use href="#d-tablet"/></svg>Tablet</span>
+          <span style="font-size: 2.25rem; font-weight: 700; letter-spacing: -0.01em;">Markenqualität</span>
+          <span style="font-size: var(--text-caption); color: var(--graphite-500); font-family: ui-monospace, monospace;">36px / 2.25rem</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: var(--sp-4);">
+          <span class="device-tag device-tag--desktop" style="min-width: 100px"><svg><use href="#d-desktop"/></svg>Desktop</span>
+          <span style="font-size: var(--text-display); font-weight: 700; letter-spacing: -0.01em; line-height: 1;">Markenqualität</span>
+          <span style="font-size: var(--text-caption); color: var(--graphite-500); font-family: ui-monospace, monospace;">46px / 2.875rem</span>
+        </div>
+      </div>
+    </div>
     <div class="ref-block">
       <div class="type-row"><span class="type-row__name">--text-display</span><span class="type-row__size">46px</span><span class="type-row__sample" style="font-size:var(--text-display); line-height:var(--lh-display); font-weight:700;">Markenqualität</span></div>
       <div class="type-row"><span class="type-row__name">--text-h2</span><span class="type-row__size">24px</span><span class="type-row__sample" style="font-size:var(--text-h2); font-weight:700;">Markenqualität</span></div>
@@ -261,9 +338,9 @@
   <section class="ref-section">
     <h2 class="ref-section-title">Spacing scale
       <span class="devices">
-        <span class="device-tag device-tag--on">▣</span>
-        <span class="device-tag device-tag--on">◆</span>
-        <span class="device-tag device-tag--on">●</span>
+        <span class="device-tag device-tag--mobile"><svg><use href="#d-mobile"/></svg>Mobile</span>
+        <span class="device-tag device-tag--tablet"><svg><use href="#d-tablet"/></svg>Tablet</span>
+        <span class="device-tag device-tag--desktop"><svg><use href="#d-desktop"/></svg>Desktop</span>
       </span>
     </h2>
     <p class="ref-section-desc">Bar widths match the actual pixel values. Universal tokens, used at every breakpoint.</p>
@@ -287,9 +364,9 @@
   <section class="ref-section">
     <h2 class="ref-section-title">Radii
       <span class="devices">
-        <span class="device-tag device-tag--on">▣</span>
-        <span class="device-tag device-tag--on">◆</span>
-        <span class="device-tag device-tag--on">●</span>
+        <span class="device-tag device-tag--mobile"><svg><use href="#d-mobile"/></svg>Mobile</span>
+        <span class="device-tag device-tag--tablet"><svg><use href="#d-tablet"/></svg>Tablet</span>
+        <span class="device-tag device-tag--desktop"><svg><use href="#d-desktop"/></svg>Desktop</span>
       </span>
     </h2>
     <div class="ref-block">
@@ -307,15 +384,21 @@
   <section class="ref-section">
     <h2 class="ref-section-title">Buttons
       <span class="devices">
-        <span class="device-tag device-tag--on">▣ Mobile</span>
-        <span class="device-tag device-tag--on">◆ Tablet</span>
-        <span class="device-tag device-tag--on">● Desktop</span>
+        <span class="device-tag device-tag--mobile"><svg><use href="#d-mobile"/></svg>Mobile</span>
+        <span class="device-tag device-tag--tablet"><svg><use href="#d-tablet"/></svg>Tablet</span>
+        <span class="device-tag device-tag--desktop"><svg><use href="#d-desktop"/></svg>Desktop</span>
       </span>
     </h2>
-    <p class="ref-section-desc">Base <code>.btn</code> + modifier (e.g. <code>.btn--primary</code>). Used across all viewports.</p>
+    <p class="ref-section-desc">Base <code>.btn</code> + modifier (e.g. <code>.btn--primary</code>).</p>
 
     <div class="ref-block">
-      <div class="ref-label">.btn--primary</div>
+      <div class="ref-label">.btn--primary
+        <span class="ref-block-tags">
+          <span class="device-tag device-tag--mobile"><svg><use href="#d-mobile"/></svg>M</span>
+          <span class="device-tag device-tag--tablet"><svg><use href="#d-tablet"/></svg>T</span>
+          <span class="device-tag device-tag--desktop"><svg><use href="#d-desktop"/></svg>D</span>
+        </span>
+      </div>
       <div class="ref-row">
         <button class="btn btn--primary">Briefkästen entdecken</button>
         <button class="btn btn--primary btn--lg">Mehr erfahren</button>
@@ -323,7 +406,13 @@
     </div>
 
     <div class="ref-block">
-      <div class="ref-label">.btn--secondary</div>
+      <div class="ref-label">.btn--secondary
+        <span class="ref-block-tags">
+          <span class="device-tag device-tag--mobile"><svg><use href="#d-mobile"/></svg>M</span>
+          <span class="device-tag device-tag--tablet"><svg><use href="#d-tablet"/></svg>T</span>
+          <span class="device-tag device-tag--desktop"><svg><use href="#d-desktop"/></svg>D</span>
+        </span>
+      </div>
       <div class="ref-row">
         <button class="btn btn--secondary">Mehr erfahren</button>
         <button class="btn btn--secondary btn--lg">Mehr erfahren</button>
@@ -331,14 +420,26 @@
     </div>
 
     <div class="ref-block" style="background: var(--teal-dark);">
-      <div class="ref-label" style="color: var(--white)">.btn--secondary-light (on dark)</div>
+      <div class="ref-label" style="color: var(--white)">.btn--secondary-light (on dark)
+        <span class="ref-block-tags">
+          <span class="device-tag device-tag--mobile"><svg><use href="#d-mobile"/></svg>M</span>
+          <span class="device-tag device-tag--tablet"><svg><use href="#d-tablet"/></svg>T</span>
+          <span class="device-tag device-tag--desktop"><svg><use href="#d-desktop"/></svg>D</span>
+        </span>
+      </div>
       <div class="ref-row">
         <button class="btn btn--secondary-light">Mehr erfahren</button>
       </div>
     </div>
 
     <div class="ref-block">
-      <div class="ref-label">.tlink / .tlink--mint</div>
+      <div class="ref-label">.tlink / .tlink--mint
+        <span class="ref-block-tags">
+          <span class="device-tag device-tag--mobile"><svg><use href="#d-mobile"/></svg>M</span>
+          <span class="device-tag device-tag--tablet"><svg><use href="#d-tablet"/></svg>T</span>
+          <span class="device-tag device-tag--desktop"><svg><use href="#d-desktop"/></svg>D</span>
+        </span>
+      </div>
       <div class="ref-row">
         <a href="#" class="tlink">Mehr über die Auszeichnung</a>
       </div>
@@ -349,14 +450,20 @@
   <section class="ref-section">
     <h2 class="ref-section-title">Hero chips
       <span class="devices">
-        <span class="device-tag device-tag--on">▣ Mobile</span>
-        <span class="device-tag device-tag--on">◆ Tablet</span>
-        <span class="device-tag device-tag--on">● Desktop</span>
+        <span class="device-tag device-tag--mobile"><svg><use href="#d-mobile"/></svg>Mobile</span>
+        <span class="device-tag device-tag--tablet"><svg><use href="#d-tablet"/></svg>Tablet</span>
+        <span class="device-tag device-tag--desktop"><svg><use href="#d-desktop"/></svg>Desktop</span>
       </span>
     </h2>
     <p class="ref-section-desc">Used in the homepage hero banner.</p>
     <div class="ref-block" style="background: var(--teal-dark)">
-      <div class="ref-label" style="color: var(--white)">.hero-chip</div>
+      <div class="ref-label" style="color: var(--white)">.hero-chip
+        <span class="ref-block-tags">
+          <span class="device-tag device-tag--mobile"><svg><use href="#d-mobile"/></svg>M</span>
+          <span class="device-tag device-tag--tablet"><svg><use href="#d-tablet"/></svg>T</span>
+          <span class="device-tag device-tag--desktop"><svg><use href="#d-desktop"/></svg>D</span>
+        </span>
+      </div>
       <div class="ref-row">
         <span class="hero-chip">
           <span class="hero-chip__pre">POWERED BY</span>
@@ -373,23 +480,44 @@
   <section class="ref-section">
     <h2 class="ref-section-title">Category card
       <span class="devices">
-        <span class="device-tag device-tag--on">▣ Mobile</span>
-        <span class="device-tag device-tag--on">◆ Tablet</span>
-        <span class="device-tag device-tag--on">● Desktop</span>
+        <span class="device-tag device-tag--mobile"><svg><use href="#d-mobile"/></svg>Mobile</span>
+        <span class="device-tag device-tag--tablet"><svg><use href="#d-tablet"/></svg>Tablet</span>
+        <span class="device-tag device-tag--desktop"><svg><use href="#d-desktop"/></svg>Desktop</span>
       </span>
     </h2>
-    <p class="ref-section-desc">Selector: <code>.cat-card</code>. Used in the "Markenqualität" bento grid. Background here is a placeholder gradient; production cards use product photography. <strong>Layout differs per device:</strong> mobile + tablet use a <code>grid-template-areas</code> bento (3 stacked modules); desktop uses explicit per-card grid placement (4×6).</p>
+    <p class="ref-section-desc">Selector: <code>.cat-card</code>. Used in the "Markenqualität" bento grid. Background here is a placeholder gradient; production cards use product photography.</p>
+
     <div class="ref-block">
+      <div class="ref-label">Bento layout (mobile + tablet)
+        <span class="ref-block-tags">
+          <span class="device-tag device-tag--mobile"><svg><use href="#d-mobile"/></svg>M</span>
+          <span class="device-tag device-tag--tablet"><svg><use href="#d-tablet"/></svg>T</span>
+        </span>
+      </div>
+      <p style="font-size: var(--text-body-sm); color: var(--graphite-500); margin-bottom: var(--sp-4);">3 stacked modules of full-width hero + 2-col row, via <code>grid-template-areas</code>.</p>
+      <div class="ref-row">
+        <div class="demo-cat" style="width: 200px; height: 140px;">
+          <div class="demo-cat__body"><div class="demo-cat__title" style="font-size: 18px;">Briefkästen</div></div>
+        </div>
+        <div class="demo-cat" style="width: 200px; height: 140px;">
+          <div class="demo-cat__body"><div class="demo-cat__title" style="font-size: 18px;">Sprechanlagen</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ref-block">
+      <div class="ref-label">Explicit 4×6 grid (desktop)
+        <span class="ref-block-tags">
+          <span class="device-tag device-tag--desktop"><svg><use href="#d-desktop"/></svg>D</span>
+        </span>
+      </div>
+      <p style="font-size: var(--text-body-sm); color: var(--graphite-500); margin-bottom: var(--sp-4);">Each <code>.cat-card--cN</code> modifier sets its own <code>grid-column</code> + <code>grid-row</code>.</p>
       <div class="ref-row">
         <div class="demo-cat">
-          <div class="demo-cat__body">
-            <div class="demo-cat__title">Briefkästen</div>
-          </div>
+          <div class="demo-cat__body"><div class="demo-cat__title">Briefkästen</div></div>
         </div>
         <div class="demo-cat">
-          <div class="demo-cat__body">
-            <div class="demo-cat__title">Sprechanlagen</div>
-          </div>
+          <div class="demo-cat__body"><div class="demo-cat__title">Sprechanlagen</div></div>
         </div>
       </div>
     </div>
