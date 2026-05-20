@@ -31,14 +31,12 @@ All tokens live on `:root` at the top of `styles-v2.css`.
 | `--teal-5`       | `rgba(1,82,83,0.05)`        | Tinted hover backgrounds             |
 | `--teal-10`      | `rgba(1,82,83,0.10)`        | Tinted focus rings                   |
 
-### Colors — brand & status
+### Colors — brand
 
-| Token            | Value      | Use                       |
-| ---------------- | ---------- | ------------------------- |
-| `--rot`          | `#D42924`  | Logo red, accent          |
-| `--schwarz`      | `#1A171B`  | Primary text colour       |
-| `--green`        | `#009951`  | Success / OK              |
-| `--red-default`  | `#C90000`  | Errors / discounts        |
+| Token        | Value      | Use                       |
+| ------------ | ---------- | ------------------------- |
+| `--rot`      | `#D42924`  | Logo red, accent          |
+| `--schwarz`  | `#1A171B`  | Primary text colour       |
 
 ### Colors — neutrals
 
@@ -56,7 +54,6 @@ All tokens live on `:root` at the top of `styles-v2.css`.
 | Token             | Size              | Used for                  |
 | ----------------- | ----------------- | ------------------------- |
 | `--text-display`  | `2.875rem` (46px) | Section titles (desktop)  |
-| `--text-h1`       | `1.875rem` (30px) | (reserved)                |
 | `--text-h2`       | `1.5rem` (24px)   | Cat-card titles, headings |
 | `--text-h3`       | `1.25rem` (20px)  | Sub-headings              |
 | `--text-h4`       | `1.125rem` (18px) | Subtitles, large body     |
@@ -94,22 +91,19 @@ Line-heights: `--lh-display: 1.15`, `--lh-heading: 1.3`, `--lh-body: 1.5`.
 
 | Token       | Value       | Use                                   |
 | ----------- | ----------- | ------------------------------------- |
-| `--r-xs`    | 1px         | Hairlines                             |
 | `--r-s`     | 2px         | Hero chips                            |
 | `--r-m`     | 4px         | Buttons, scroll arrows                |
-| `--r-l`     | 8px         | Cards, reviews bar                    |
+| `--r-l`     | 8px         | Reviews bar, FAQ support card         |
 | `--r-xl`    | 12px        | Cat cards                             |
-| `--r-xxl`   | 20px        | Large containers                      |
 | `--r-pill`  | 9999px      | Icon buttons, badges, "Alle" button   |
 
 ### Shadows
 
-| Token         | Use                              |
-| ------------- | -------------------------------- |
-| `--shadow-sm` | Subtle elevation (cards)         |
-| `--shadow-md` | Floating elements                |
-| `--shadow-lg` | Drawers, modals                  |
-| `--shadow-xl` | Hero device, awards photo        |
+| Token         | Use      |
+| ------------- | -------- |
+| `--shadow-lg` | Drawers  |
+
+Other shadow values used on the page are written inline (not via tokens) — see `.awards__photo`, `.hero-banner__poster`, etc.
 
 ### Layout
 
