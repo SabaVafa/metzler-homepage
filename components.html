@@ -127,6 +127,34 @@
     /* Trust badge demo wrapper */
     .demo-trust { width: 160px; }
 
+    /* Device badge — shows which breakpoints a component is used in */
+    .devices {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      margin-left: var(--sp-3);
+      vertical-align: middle;
+    }
+    .device-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 3px 8px;
+      border-radius: var(--r-pill);
+      background: var(--paper-white);
+      color: var(--graphite-500);
+      border: 1px solid var(--graphite-300);
+      text-transform: uppercase;
+    }
+    .device-tag--on {
+      background: var(--teal-10);
+      color: var(--teal);
+      border-color: var(--teal-10);
+    }
+
     /* Cat-card demo (simplified — actual cards rely on real images) */
     .demo-cat {
       width: 280px;
@@ -158,10 +186,24 @@
   <h1 class="ref-h1">Metzler Components</h1>
   <p class="ref-sub">Visual reference for the design tokens and reusable UI patterns defined in <code>styles-v2.css</code>. Open this file alongside <code>COMPONENTS.md</code>.</p>
 
+  <div class="ref-block" style="display: flex; align-items: center; gap: var(--sp-4); flex-wrap: wrap; background: var(--paper-white);">
+    <strong style="font-size: var(--text-body-sm);">Device legend:</strong>
+    <span class="device-tag device-tag--on">▣ Mobile (≤767px)</span>
+    <span class="device-tag device-tag--on">◆ Tablet (768–1023px)</span>
+    <span class="device-tag device-tag--on">● Desktop (≥1024px)</span>
+    <span style="font-size: var(--text-body-sm); color: var(--graphite-500);">Tags below each component show which breakpoints it's rendered at.</span>
+  </div>
+
   <!-- ─── COLORS ─── -->
   <section class="ref-section">
-    <h2 class="ref-section-title">Colors</h2>
-    <p class="ref-section-desc">All colors are exposed as CSS custom properties on <code>:root</code>. Use the token, not the literal value.</p>
+    <h2 class="ref-section-title">Colors
+      <span class="devices">
+        <span class="device-tag device-tag--on">▣</span>
+        <span class="device-tag device-tag--on">◆</span>
+        <span class="device-tag device-tag--on">●</span>
+      </span>
+    </h2>
+    <p class="ref-section-desc">All colors are exposed as CSS custom properties on <code>:root</code>. Tokens are universal across all viewports.</p>
 
     <div class="ref-block">
       <div class="ref-label">Primary — teal</div>
@@ -196,8 +238,14 @@
 
   <!-- ─── TYPOGRAPHY ─── -->
   <section class="ref-section">
-    <h2 class="ref-section-title">Typography</h2>
-    <p class="ref-section-desc">Font: <code>Helvetica Neue, Helvetica, Arial, sans-serif</code>. Use the token, not raw rem.</p>
+    <h2 class="ref-section-title">Typography
+      <span class="devices">
+        <span class="device-tag device-tag--on">▣</span>
+        <span class="device-tag device-tag--on">◆</span>
+        <span class="device-tag device-tag--on">●</span>
+      </span>
+    </h2>
+    <p class="ref-section-desc">Font: <code>Helvetica Neue, Helvetica, Arial, sans-serif</code>. Use the token, not raw rem. Section titles scale per breakpoint: <strong>32px mobile · 36px tablet · 46px desktop</strong>.</p>
     <div class="ref-block">
       <div class="type-row"><span class="type-row__name">--text-display</span><span class="type-row__size">46px</span><span class="type-row__sample" style="font-size:var(--text-display); line-height:var(--lh-display); font-weight:700;">Markenqualität</span></div>
       <div class="type-row"><span class="type-row__name">--text-h2</span><span class="type-row__size">24px</span><span class="type-row__sample" style="font-size:var(--text-h2); font-weight:700;">Markenqualität</span></div>
@@ -211,8 +259,14 @@
 
   <!-- ─── SPACING ─── -->
   <section class="ref-section">
-    <h2 class="ref-section-title">Spacing scale</h2>
-    <p class="ref-section-desc">Bar widths match the actual pixel values.</p>
+    <h2 class="ref-section-title">Spacing scale
+      <span class="devices">
+        <span class="device-tag device-tag--on">▣</span>
+        <span class="device-tag device-tag--on">◆</span>
+        <span class="device-tag device-tag--on">●</span>
+      </span>
+    </h2>
+    <p class="ref-section-desc">Bar widths match the actual pixel values. Universal tokens, used at every breakpoint.</p>
     <div class="ref-block">
       <div class="space-row"><span class="space-row__token">--sp-1</span><span class="space-row__px">4px</span><span class="space-row__bar" style="width:4px"></span></div>
       <div class="space-row"><span class="space-row__token">--sp-2</span><span class="space-row__px">8px</span><span class="space-row__bar" style="width:8px"></span></div>
@@ -231,7 +285,13 @@
 
   <!-- ─── RADII ─── -->
   <section class="ref-section">
-    <h2 class="ref-section-title">Radii</h2>
+    <h2 class="ref-section-title">Radii
+      <span class="devices">
+        <span class="device-tag device-tag--on">▣</span>
+        <span class="device-tag device-tag--on">◆</span>
+        <span class="device-tag device-tag--on">●</span>
+      </span>
+    </h2>
     <div class="ref-block">
       <div class="ref-row" style="gap: var(--sp-6)">
         <div class="radius-chip"><div class="radius-chip__box" style="border-radius: var(--r-s)">2</div><span>--r-s</span></div>
@@ -245,8 +305,14 @@
 
   <!-- ─── BUTTONS ─── -->
   <section class="ref-section">
-    <h2 class="ref-section-title">Buttons</h2>
-    <p class="ref-section-desc">Base <code>.btn</code> + modifier (e.g. <code>.btn--primary</code>).</p>
+    <h2 class="ref-section-title">Buttons
+      <span class="devices">
+        <span class="device-tag device-tag--on">▣ Mobile</span>
+        <span class="device-tag device-tag--on">◆ Tablet</span>
+        <span class="device-tag device-tag--on">● Desktop</span>
+      </span>
+    </h2>
+    <p class="ref-section-desc">Base <code>.btn</code> + modifier (e.g. <code>.btn--primary</code>). Used across all viewports.</p>
 
     <div class="ref-block">
       <div class="ref-label">.btn--primary</div>
@@ -281,7 +347,13 @@
 
   <!-- ─── HERO CHIPS ─── -->
   <section class="ref-section">
-    <h2 class="ref-section-title">Hero chips</h2>
+    <h2 class="ref-section-title">Hero chips
+      <span class="devices">
+        <span class="device-tag device-tag--on">▣ Mobile</span>
+        <span class="device-tag device-tag--on">◆ Tablet</span>
+        <span class="device-tag device-tag--on">● Desktop</span>
+      </span>
+    </h2>
     <p class="ref-section-desc">Used in the homepage hero banner.</p>
     <div class="ref-block" style="background: var(--teal-dark)">
       <div class="ref-label" style="color: var(--white)">.hero-chip</div>
@@ -299,8 +371,14 @@
 
   <!-- ─── CATEGORY CARD ─── -->
   <section class="ref-section">
-    <h2 class="ref-section-title">Category card</h2>
-    <p class="ref-section-desc">Selector: <code>.cat-card</code>. Used in the "Markenqualität" bento grid. Background here is a placeholder gradient; production cards use product photography.</p>
+    <h2 class="ref-section-title">Category card
+      <span class="devices">
+        <span class="device-tag device-tag--on">▣ Mobile</span>
+        <span class="device-tag device-tag--on">◆ Tablet</span>
+        <span class="device-tag device-tag--on">● Desktop</span>
+      </span>
+    </h2>
+    <p class="ref-section-desc">Selector: <code>.cat-card</code>. Used in the "Markenqualität" bento grid. Background here is a placeholder gradient; production cards use product photography. <strong>Layout differs per device:</strong> mobile + tablet use a <code>grid-template-areas</code> bento (3 stacked modules); desktop uses explicit per-card grid placement (4×6).</p>
     <div class="ref-block">
       <div class="ref-row">
         <div class="demo-cat">
