@@ -2369,8 +2369,21 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .topbar__links { display: none; }
   .topbar__claims li:nth-child(2),
   .topbar__claims li:nth-child(3) { display: flex; }
-  .topbar__inner { justify-content: space-around; gap: var(--sp-3); }
-  .topbar__claims { gap: var(--sp-3); justify-content: space-around; flex: 1; }
+  /* Align the two claims with the header icons directly below:
+     left text x-aligned with the burger icon, right text x-aligned
+     with the cart icon. Burger and cart sit with a -13px outdent
+     from the .container padding, so we mirror that here. */
+  .topbar__inner {
+    justify-content: space-between;
+    padding-inline: clamp(11px, calc(4vw - 13px), 43px);
+    gap: var(--sp-3);
+  }
+  .topbar__claims {
+    width: 100%;
+    justify-content: space-between;
+    gap: var(--sp-3);
+    flex: 1;
+  }
 }
 
 /* ============================================================
