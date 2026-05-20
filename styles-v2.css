@@ -2356,6 +2356,17 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 }
 
 /* ============================================================
+   Narrow desktop topbar (1024–1199px)
+   Hide claim 4 (Trusted Shops Käuferschutz) and claim 5 (Kauf
+   auf Rechnung) so the topbar stays on one line at smaller
+   desktop widths. At ≥1200px, all five claims are shown.
+   ============================================================ */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .topbar__claims li:nth-child(4),
+  .topbar__claims li:nth-child(5) { display: none; }
+}
+
+/* ============================================================
    Mobile topbar (≤767px)
    Shows ONLY the "1.8 Mio. Kunden" + "10 Jahre Garantie" claims.
    Hides item 1 (Qualität seit 2013), items 4–5, and the right
