@@ -2349,11 +2349,28 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 
 @media (max-width: 640px) {
   :root { --section-y: var(--sp-12); }
-  .topbar { display: none; }
   /* (cats__grid sized exclusively by the 900px @media — no override here) */
   .footer__top,
   .footer__quality-grid { grid-template-columns: 1fr; }
   .header__nav ul { gap: var(--sp-5); }
+}
+
+/* ============================================================
+   Mobile topbar (≤767px)
+   Shows ONLY the "1.8 Mio. Kunden" + "10 Jahre Garantie" claims.
+   Hides item 1 (Qualität seit 2013), items 4–5, and the right
+   side links. Same teal style + 36px height as desktop — just
+   trimmed content. Sits at the very top of the page above the
+   sticky header.
+   ============================================================ */
+@media (max-width: 767px) {
+  .topbar__claims li:nth-child(1),
+  .topbar__claims li:nth-child(n+4),
+  .topbar__links { display: none; }
+  .topbar__claims li:nth-child(2),
+  .topbar__claims li:nth-child(3) { display: flex; }
+  .topbar__inner { justify-content: space-around; gap: var(--sp-3); }
+  .topbar__claims { gap: var(--sp-3); justify-content: space-around; flex: 1; }
 }
 
 /* ============================================================
