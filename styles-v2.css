@@ -266,6 +266,23 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   color: var(--black);
 }
 .header__search input::placeholder { color: var(--graphite-500); }
+/* Replace the browser default clear-X (which Chrome/Edge tint with
+   the system accent colour — usually blue) with a custom SVG in
+   --graphite-500 so it matches the magnifier on the left. */
+.header__search input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  cursor: pointer;
+  background:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A1A1A1' stroke-width='2.2' stroke-linecap='round'><line x1='6' y1='6' x2='18' y2='18'/><line x1='6' y1='18' x2='18' y2='6'/></svg>")
+    center / contain no-repeat;
+  opacity: 0.85;
+  transition: opacity 0.15s ease;
+}
+.header__search input::-webkit-search-cancel-button:hover { opacity: 1; }
 .header__search input:focus {
   outline: none;
   border-color: var(--teal);
