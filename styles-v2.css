@@ -2766,14 +2766,66 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .awards__credential-label { font-size: var(--text-body); letter-spacing: 0.2em; }
   .awards__credential-meta { font-size: var(--text-h4); }
 
-  /* Header is permanently sticky on tablet — pure CSS, no morph,
-     no JS-driven swap. Stays pinned to the top in both scroll
-     directions. */
+  /* Header — sticky at rest, switches to FIXED + mobile-style
+     layout the moment the user scrolls. JS toggles body.is-scrolled
+     based on window.scrollY; the morph rules below activate then. */
   .header {
     position: sticky;
     top: 0;
     z-index: 90;
     background: var(--white);
+  }
+
+  body.is-scrolled .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+  /* Topbar hidden during scroll so the fixed header sits flush. */
+  body.is-scrolled .topbar { display: none; }
+  /* Body padding-top compensates for the header being out of flow. */
+  body.is-scrolled { padding-top: 72px; }
+
+  /* ── Header morph (mobile-style layout when scrolled) ── */
+  body.is-scrolled .header__main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    grid-template-columns: none;
+    gap: 0;
+    height: 72px;
+    padding-block: 0;
+  }
+  body.is-scrolled .header__burger { display: flex; }
+  body.is-scrolled .header__search-icon { display: inline-flex; }
+  body.is-scrolled .header__search { display: none; }
+  body.is-scrolled .header__nav { display: none; }
+  body.is-scrolled .header__kategorien { display: none; }
+  body.is-scrolled .header__logo img { height: 28px; }
+  body.is-scrolled .header__left-actions {
+    display: flex;
+    gap: 0;
+  }
+  body.is-scrolled .header__burger,
+  body.is-scrolled .header__search-icon,
+  body.is-scrolled .icon-btn {
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: var(--r-pill);
+    color: var(--schwarz);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  body.is-scrolled .header__burger svg { width: 28px; height: 22px; color: var(--schwarz); }
+  body.is-scrolled .header__search-icon svg { width: 26px; height: 26px; color: var(--schwarz); }
+  body.is-scrolled .header__icons {
+    display: flex;
+    gap: 0;
   }
 
   /* Topbar — show only the first two claims + both right-side
