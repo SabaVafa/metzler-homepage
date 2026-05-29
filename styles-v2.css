@@ -1626,15 +1626,19 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   gap: 6px;
 }
 .reviews__rating-source { height: 18px; width: auto; }
-/* Rendered as an inline span INSIDE the .section-title h2, so it
-   inherits the heading's text baseline directly — "n" in the count
-   sits on the same baseline as "n" in the title. */
+/* Inline span inside .section-title h2. Vertical-align: middle
+   centers the count within the title's x-height band so the
+   "n" of "Bewertungen" sits visually level with the "n" of
+   "Kunden" rather than dangling at the title's baseline. */
 .reviews__rating-count {
   font-size: var(--text-body-sm);
   font-weight: 500;
   color: rgba(0, 0, 0, 0.55);
   letter-spacing: 0;
   margin-left: 4px;
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
 }
 .reviews__grid {
   display: grid;
