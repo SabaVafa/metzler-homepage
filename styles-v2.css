@@ -1626,6 +1626,12 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   gap: 6px;
 }
 .reviews__rating-source { height: 18px; width: auto; }
+.reviews__rating-count {
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.55);
+  margin-left: var(--sp-2);
+}
 .reviews__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
