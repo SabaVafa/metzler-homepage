@@ -1628,7 +1628,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 .reviews__rating-source { height: 18px; width: auto; }
 .reviews__title-block {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: var(--sp-3);
   flex-wrap: wrap;
 }
