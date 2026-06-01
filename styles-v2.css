@@ -252,18 +252,8 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 .header__search {
   position: relative;
   width: 100%;
-  /* Stretch to fill the 1fr grid column at every desktop width so
-     the search bar absorbs the available space between logo and
-     icons. Capped at a sensible max so the input doesn't become
-     absurdly wide on ultra-wide monitors. */
-  max-width: 1100px;
-  justify-self: stretch;
-}
-@media (min-width: 1440px) {
-  .header__search { max-width: 1300px; }
-}
-@media (min-width: 1920px) {
-  .header__search { max-width: 1600px; }
+  max-width: 846px;
+  justify-self: center;
 }
 .header__search input {
   width: 100%;
