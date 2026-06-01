@@ -252,20 +252,18 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 .header__search {
   position: relative;
   width: 100%;
-  /* Search bar grows with the viewport: 846px on standard desktop,
-     widens at ≥1440 and ≥1920 so the header doesn't leave a lot
-     of blank space between logo / icons at wide viewports. */
-  max-width: 846px;
-  justify-self: center;
+  /* Stretch to fill the 1fr grid column at every desktop width so
+     the search bar absorbs the available space between logo and
+     icons. Capped at a sensible max so the input doesn't become
+     absurdly wide on ultra-wide monitors. */
+  max-width: 1100px;
+  justify-self: stretch;
 }
 @media (min-width: 1440px) {
-  .header__search { max-width: 1080px; }
+  .header__search { max-width: 1300px; }
 }
 @media (min-width: 1920px) {
-  .header__search { max-width: 1280px; }
-}
-@media (min-width: 2560px) {
-  .header__search { max-width: 1480px; }
+  .header__search { max-width: 1600px; }
 }
 .header__search input {
   width: 100%;
