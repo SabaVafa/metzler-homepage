@@ -366,18 +366,24 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 }
 /* On mobile the drawer fills the entire viewport — full width
    AND full height — so it covers the sticky header / topbar
-   completely. Reads as a true full-screen overlay. */
+   completely. Reads as a true full-screen overlay. Uses
+   position: fixed directly on the panel (not absolute inside
+   the .mobile-nav parent) to avoid iOS Safari quirks where
+   sticky-header stacking contexts intercept the drawer. */
 @media (max-width: 767px) {
   .mobile-nav { z-index: 1100; }
   .mobile-nav__panel {
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
     max-width: none;
     box-shadow: none;
+    z-index: 1101;
   }
 }
 .mobile-nav.is-open .mobile-nav__panel { transform: translateX(0); }
