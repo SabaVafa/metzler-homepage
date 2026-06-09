@@ -364,6 +364,16 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   box-shadow: 4px 0 32px rgba(0, 0, 0, 0.2);
 }
+/* On mobile the drawer fills the entire viewport — full width
+   and full height — so it reads as a true full-screen overlay
+   rather than a side panel with backdrop. */
+@media (max-width: 767px) {
+  .mobile-nav__panel {
+    width: 100%;
+    max-width: none;
+    box-shadow: none;
+  }
+}
 .mobile-nav.is-open .mobile-nav__panel { transform: translateX(0); }
 .mobile-nav__head {
   display: flex;
