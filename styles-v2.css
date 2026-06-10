@@ -2425,7 +2425,6 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .footer__top > *:nth-child(3) { grid-column: 1; }
   .footer__top > *:nth-child(4) {
     grid-column: 2;
-    text-align: right;
     /* Defensive: ensure content can never overflow the column
        (long German words like "Begriffserklärung" wrap instead). */
     min-width: 0;
