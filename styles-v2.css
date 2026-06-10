@@ -1546,7 +1546,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 .reviews { background: var(--paper-white); }
 .reviews__head {
   display: flex;
-  align-items: end;
+  align-items: center;
   justify-content: space-between;
   gap: var(--sp-8);
   margin-bottom: var(--sp-12);
