@@ -2409,7 +2409,13 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 @media (max-width: 640px) {
   :root { --section-y: var(--sp-12); }
   /* (cats__grid sized exclusively by the 900px @media — no override here) */
-  .footer__top,
+  /* Footer: 2-col grid where the brand, hotline, and follow-us
+     blocks span the full width, but the Informationen + Service
+     link lists sit side-by-side instead of stacking. */
+  .footer__top { grid-template-columns: 1fr 1fr; }
+  .footer__top > * { grid-column: 1 / -1; }
+  .footer__top > *:nth-child(3) { grid-column: 1; }
+  .footer__top > *:nth-child(4) { grid-column: 2; }
   .footer__quality-grid { grid-template-columns: 1fr; }
   .header__nav ul { gap: var(--sp-5); }
 }
