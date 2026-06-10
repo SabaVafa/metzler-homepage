@@ -1993,11 +1993,10 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
    as distinct rows (matches the production live site). */
 @media (max-width: 640px) {
   .footer__details {
-    padding-block: var(--sp-3);
+    padding-block: var(--sp-2);
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   }
-  .footer__details + .footer__details { border-top: 1px solid rgba(255, 255, 255, 0.12); }
-  .footer__details[open] .footer__links { padding-top: var(--sp-3); }
+  .footer__details[open] .footer__links { padding-top: var(--sp-2); }
 }
 .footer__links a {
   font-size: var(--text-body-sm);
