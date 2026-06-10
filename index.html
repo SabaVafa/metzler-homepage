@@ -657,8 +657,8 @@
       </div>
 
       <!-- 3. Informationen -->
-      <div>
-        <h4>Informationen</h4>
+      <details class="footer__details" open>
+        <summary><h4>Informationen</h4></summary>
         <ul class="footer__links">
           <li><a href="#">Auszeichnungen</a></li>
           <li><a href="#">Fotowettbewerb</a></li>
@@ -667,11 +667,11 @@
           <li><a href="#">News</a></li>
           <li><a href="#">Zahlung und Versand</a></li>
         </ul>
-      </div>
+      </details>
 
       <!-- 4. Service -->
-      <div>
-        <h4>Service</h4>
+      <details class="footer__details" open>
+        <summary><h4>Service</h4></summary>
         <ul class="footer__links">
           <li><a href="#">Begriffserklärung</a></li>
           <li><a href="#">FAQ</a></li>
@@ -679,7 +679,7 @@
           <li><a href="#">Newsletter</a></li>
           <li><a href="#">VDM10 FAQ</a></li>
         </ul>
-      </div>
+      </details>
 
       <!-- 5. Follow us + Qualität -->
       <div class="footer__follow">
@@ -868,6 +868,21 @@
     window.addEventListener('resize', update);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(update);
     update();
+  })();
+
+  // Footer accordions: collapsed on mobile, expanded on tablet+.
+  (function(){
+    var details = document.querySelectorAll('.footer__details');
+    if (!details.length) return;
+    var mobileMq = window.matchMedia('(max-width: 640px)');
+    function sync() {
+      details.forEach(function(el){
+        if (mobileMq.matches) el.removeAttribute('open');
+        else el.setAttribute('open', '');
+      });
+    }
+    sync();
+    mobileMq.addEventListener('change', sync);
   })();
 
   // Responsive search placeholder — short on mobile, 2 items on tablet, 3 on desktop
