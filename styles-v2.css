@@ -2414,11 +2414,23 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
      link lists sit side-by-side instead of stacking.
      Service column right-aligned so its right margin (distance
      from viewport edge to the last character) matches the left
-     column's left margin — visually symmetric. */
-  .footer__top { grid-template-columns: 1fr 1fr; }
+     column's left margin — visually symmetric.
+     Mobile gap reduced from the desktop default (40px) so the
+     two columns fit comfortably on a 375px viewport. */
+  .footer__top {
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--sp-4);
+  }
   .footer__top > * { grid-column: 1 / -1; }
   .footer__top > *:nth-child(3) { grid-column: 1; }
-  .footer__top > *:nth-child(4) { grid-column: 2; text-align: right; }
+  .footer__top > *:nth-child(4) {
+    grid-column: 2;
+    text-align: right;
+    /* Defensive: ensure content can never overflow the column
+       (long German words like "Begriffserklärung" wrap instead). */
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
   .footer__quality-grid { grid-template-columns: 1fr; }
   .header__nav ul { gap: var(--sp-5); }
 }
