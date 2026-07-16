@@ -1797,22 +1797,20 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   transition: color 0.18s ease;
 }
 .faq__item[open] .faq__q { color: var(--teal); }
+/* FAQ toggle indicator — bare chevron, no frame. Points right
+   when the item is closed; rotates 90deg to point down when open. */
 .faq__q-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: var(--r-pill);
-  background: var(--paper-white);
-  border: 1px solid var(--graphite-300);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: background 0.2s ease, border-color 0.2s ease, transform 0.3s ease;
+  color: var(--graphite-500);
+  transition: color 0.2s ease;
 }
-.faq__q-icon svg { width: 14px; height: 14px; transition: transform 0.3s ease; }
-.faq__item:hover .faq__q-icon { border-color: var(--teal); }
-.faq__item[open] .faq__q-icon { background: rgba(1, 82, 83, 0.08); border-color: var(--teal); color: var(--teal); }
-.faq__item[open] .faq__q-icon svg { transform: rotate(45deg); }
+.faq__q-icon svg { width: 18px; height: 18px; transition: transform 0.3s ease; }
+.faq__item:hover .faq__q-icon { color: var(--teal); }
+.faq__item[open] .faq__q-icon { color: var(--teal); }
+.faq__item[open] .faq__q-icon svg { transform: rotate(90deg); }
 .faq__a {
   padding: 0 var(--sp-5) var(--sp-6);
   color: rgba(0, 0, 0, 0.72);
