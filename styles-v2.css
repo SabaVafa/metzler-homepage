@@ -1797,20 +1797,25 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   transition: color 0.18s ease;
 }
 .faq__item[open] .faq__q { color: var(--teal); }
-/* FAQ toggle indicator — bare chevron, no frame. Points right
-   when the item is closed; rotates 90deg to point down when open. */
+/* FAQ toggle indicator — bare 24×24 chevron-down, no frame.
+   On open the chevron flips vertically (scaleY(-1)), matching
+   the pattern used on the Metzler production-process page. */
 .faq__q-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  flex: 0 0 auto;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: grid;
+  place-items: center;
+  background: none;
+  border: 0;
+  border-radius: 0;
   color: var(--graphite-500);
   transition: color 0.2s ease;
 }
-.faq__q-icon svg { width: 18px; height: 18px; transition: transform 0.3s ease; }
+.faq__q-icon svg { width: 1.5rem; height: 1.5rem; transition: transform 0.2s ease; }
 .faq__item:hover .faq__q-icon { color: var(--teal); }
 .faq__item[open] .faq__q-icon { color: var(--teal); }
-.faq__item[open] .faq__q-icon svg { transform: rotate(90deg); }
+.faq__item[open] .faq__q-icon svg { transform: scaleY(-1); }
 .faq__a {
   padding: 0 var(--sp-5) var(--sp-6);
   color: rgba(0, 0, 0, 0.72);
