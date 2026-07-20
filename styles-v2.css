@@ -1015,14 +1015,14 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 @media (min-width: 1440px) {
   .hero-banner__copy {
     --hero-pad: clamp(92px, 5vw, 116px);
-    margin-left: max(var(--hero-pad), calc((100vw - var(--container)) / 4 + var(--hero-pad)));
+    margin-left: max(var(--hero-pad), calc((100vw - var(--container)) / 2 + var(--hero-pad)));
     max-width: 1100px;
   }
 }
 @media (min-width: 1920px) {
   .hero-banner__copy {
     --hero-pad: clamp(92px, 5vw, 140px);
-    margin-left: max(var(--hero-pad), calc((100vw - var(--container)) / 4 + var(--hero-pad)));
+    margin-left: max(var(--hero-pad), calc((100vw - var(--container)) / 2 + var(--hero-pad)));
     max-width: 1280px;
   }
 }
