@@ -252,11 +252,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 .header__search {
   position: relative;
   width: 100%;
-  /* Dynamic width: search bar grows smoothly with the viewport
-     so the header doesn't leave blank space on large monitors.
-     Floor 846px at 1024 / scales linearly via 70vw / capped at
-     1600px on ultra-wide so the input stays usable. */
-  max-width: clamp(846px, 70vw, 1600px);
+  max-width: 846px;
   justify-self: center;
 }
 .header__search input {
@@ -560,10 +556,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .header__search {
     grid-column: auto !important;
     order: 0 !important;
-    /* Match the base rule's dynamic width so the bar grows with the
-       viewport instead of staying pinned to its 846px floor — the
-       !important here previously froze it at 846px on every desktop. */
-    max-width: clamp(846px, 70vw, 1600px) !important;
+    max-width: 846px !important;
     padding-bottom: 0 !important;
   }
 
