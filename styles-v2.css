@@ -964,7 +964,10 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   max-width: none;
   object-fit: contain;
   object-position: right center;
-  transform: translateX(6%);
+  /* No transform — poster stays within the stage box so its right
+     edge aligns with the container's right padding (matches the
+     header's cart-icon column). */
+  transform: none;
   mix-blend-mode: screen;
   filter: brightness(1.05) contrast(1.06);
   /* Aggressive left-edge mask — hides the photo's natural spotlight halo
