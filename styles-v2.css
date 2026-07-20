@@ -18,8 +18,10 @@
 /* ── Tokens ── */
 :root {
   /* Colors — Primary */
-  --teal: #015253;
-  --teal-dark: #01292A;
+  --teal: #015253;         /* DS teal-500 — primary CTA fill */
+  --teal-600: #014A4B;     /* DS teal-600 — button hover/pressed */
+  --teal-dark: #01292A;    /* DS teal-700 — button active */
+  --teal-100: #E6EEEE;     /* DS teal-100 — secondary button hover fill */
   --teal-hover: #006D75;
   --teal-mint: #5CDBD3;
   --teal-5: rgba(1, 82, 83, 0.05);
@@ -164,20 +166,27 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
   white-space: nowrap;
 }
-.btn--primary { background: #006D75; color: var(--white); }
-.btn--primary:hover { background: #015253; }
+/* Buttons follow the design system: primary = teal-500 fill, hover
+   teal-600, active teal-700; secondary = 2px outline, hover teal-100,
+   active teal fill; secondary-light (on dark) = white outline, hover
+   white 10%, active white fill / teal text. */
+.btn--primary { background: var(--teal); color: var(--white); }
+.btn--primary:hover { background: var(--teal-600); }
+.btn--primary:active { background: var(--teal-dark); }
 .btn--secondary {
   background: transparent;
   color: var(--teal);
-  border: 1.5px solid var(--teal);
+  border: 2px solid var(--teal);
 }
-.btn--secondary:hover { background: var(--teal-5); }
+.btn--secondary:hover { background: var(--teal-100); }
+.btn--secondary:active { background: var(--teal); color: var(--white); }
 .btn--secondary-light {
   background: transparent;
   color: var(--white);
-  border: 1.5px solid var(--white);
+  border: 2px solid var(--white);
 }
-.btn--secondary-light:hover { background: rgba(255, 255, 255, 0.08); }
+.btn--secondary-light:hover { background: rgba(255, 255, 255, 0.1); }
+.btn--secondary-light:active { background: var(--white); color: var(--teal); }
 .btn--arrow { padding-right: var(--sp-5); }
 .btn--arrow svg { width: 9px; height: 16px; }
 .btn--lg { height: 56px; padding-inline: var(--sp-8); font-size: var(--text-h4); }
@@ -1478,16 +1487,27 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   flex-wrap: wrap;
 }
 .awards__cta {
-  width: clamp(260px, 100%, 348px);
   height: 44px;
   padding-inline: var(--sp-8);
   font-size: var(--text-body);
   justify-content: center;
   border-radius: var(--r-m);
-  background: #006D75;
+  background: var(--teal);
   color: var(--white);
 }
-.awards__cta:hover { background: #015253; }
+.awards__cta:hover { background: var(--teal-600); }
+.awards__cta:active { background: var(--teal-dark); }
+/* Secondary (outline) CTA — matches the primary's 44px height + padding
+   so the pair aligns; white outline reads on the dark section. */
+.awards__cta-secondary {
+  height: 44px;
+  padding-inline: var(--sp-8);
+  justify-content: center;
+}
+/* Mobile: CTAs go full-width (matches the About us section). */
+@media (max-width: 640px) {
+  .awards__ctas .btn { width: 100%; }
+}
 /* Editorial composition — clean, no rotation, restrained.
    Photo + siegel at bottom-right corner overlap, year strip
    below for typographic anchor. */
@@ -1779,13 +1799,14 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   border-radius: var(--r-l);
   overflow: hidden;
   aspect-ratio: 5 / 4;
-  box-shadow: var(--shadow-lg);
 }
 .about-bridge__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+/* Title capped to 26ch to match the Awards title's max text width. */
+.about-bridge .section-title { max-width: 26ch; }
 .about-bridge__lead {
   margin-top: var(--sp-5);
   font-size: var(--text-h4);
@@ -1793,7 +1814,18 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   color: rgba(0, 0, 0, 0.72);
   max-width: 56ch;
 }
-.about-bridge__ctas { margin-top: var(--sp-8); }
+/* CTA row — primary button + secondary text link (different destinations),
+   same composition as the Awards section, filling the column width. */
+.about-bridge__ctas {
+  margin-top: var(--sp-8);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  flex-wrap: wrap;
+}
+/* Buttons size to their label with consistent side padding (sp-8),
+   matching the Awards CTAs — no fixed width. */
+.about-bridge__ctas .btn { padding-inline: var(--sp-8); }
 .about-bridge__break { display: none; }
 @media (min-width: 768px) {
   .about-bridge__break { display: initial; }
@@ -1902,8 +1934,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   line-height: 1.6;
 }
 .faq__support .btn { margin-top: var(--sp-6); width: 100%; justify-content: center; }
-.faq__support .btn--primary { background: var(--teal); }
-.faq__support .btn--primary:hover { background: #006D75; }
+.faq__support .btn--primary:hover { background: var(--teal-600); }
 .faq__phone {
   margin-top: var(--sp-6);
   padding: var(--sp-5);
