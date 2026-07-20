@@ -143,7 +143,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   letter-spacing: -0.01em;
 }
 .section-sub {
-  margin-top: var(--sp-4);
+  margin-top: var(--sp-5);
   font-size: var(--text-h4);
   line-height: 1.5;
   color: rgba(0, 0, 0, 0.72);
@@ -1339,7 +1339,10 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 /* ============================================================
    7. Why Metzler — 3-up
    ============================================================ */
-.why { background: var(--paper-white); padding-block: var(--sp-12); }
+/* Full content section — inherits .section's 80px padding-block so it
+   breathes at the same 160px inter-section rhythm as cats/awards/etc.
+   (was a compact sp-12 override). */
+.why { background: var(--paper-white); }
 .why__head { text-align: center; margin-bottom: var(--sp-12); }
 .why__head .section-sub { margin-inline: auto; }
 .why__grid {
@@ -1426,9 +1429,12 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   border-left: 1px solid rgba(255, 255, 255, 0.18);
 }
 .awards__credential-label {
+  /* Kicker aligned to the standard .eyebrow spec (12px / 0.15em) so it
+     matches every other section's eyebrow; keeps teal-mint since the
+     muted gray would be illegible on the dark section. */
   font-size: var(--text-caption);
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--teal-mint);
 }
@@ -1445,7 +1451,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .awards__credential { gap: var(--sp-6); }
   .awards__badge { height: 128px; }
   .awards__credential-text { padding-left: var(--sp-6); gap: 6px; }
-  .awards__credential-label { font-size: var(--text-body-sm); letter-spacing: 0.2em; }
+  /* credential-label stays at the .eyebrow spec (12px / 0.15em) on desktop too */
   .awards__credential-meta { font-size: var(--text-body); }
 }
 
@@ -1462,7 +1468,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   font-size: var(--text-h4);
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.78);
-  max-width: 64ch;
+  max-width: 56ch;
 }
 .awards__ctas {
   margin-top: var(--sp-8);
