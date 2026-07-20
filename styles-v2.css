@@ -116,21 +116,13 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   padding-inline: clamp(var(--sp-6), 4vw, 56px);
 }
 
-/* Laptop+ (≥1440): widen container + larger gutters */
+/* Desktop (≥1440): match the main metzler site (edelstahl-tuerklingel.de)
+   — a flat 1600px container with 100px gutters (1400px content), held at
+   that cap on every larger screen so the layout stays consistent with the
+   rest of the site instead of stretching out on wide monitors. */
 @media (min-width: 1440px) {
-  :root { --container: 1560px; }
-  .container { padding-inline: clamp(92px, 5vw, 116px); }
-}
-
-/* Large desktop (≥1920): widen further, generous gutters */
-@media (min-width: 1920px) {
-  :root { --container: 1760px; }
-  .container { padding-inline: clamp(92px, 5vw, 140px); }
-}
-
-/* Ultra-wide (≥2560): cap so content doesn't sprawl */
-@media (min-width: 2560px) {
-  :root { --container: 2040px; }
+  :root { --container: 1600px; }
+  .container { padding-inline: 100px; }
 }
 .section { padding-block: var(--section-y); }
 .eyebrow {
@@ -943,17 +935,10 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 }
 @media (min-width: 1440px) {
   .hero-banner__stage {
-    --hero-pad: clamp(92px, 5vw, 116px);
-    /* Divide by 2 so the stage's right edge aligns exactly with
-       the .container's right padding (auto-margin/2 + padding).
-       (The copy uses /4 for artistic offset — the stage needs
-       true container-edge alignment.) */
-    right: max(var(--hero-pad), calc((100vw - var(--container)) / 2 + var(--hero-pad)));
-  }
-}
-@media (min-width: 1920px) {
-  .hero-banner__stage {
-    --hero-pad: clamp(92px, 5vw, 140px);
+    /* Flat 100px gutter matches the .container's padding-inline above,
+       so the stage's right edge aligns exactly with the container edge
+       and stays put on every screen ≥1440 (same cap as the container). */
+    --hero-pad: 100px;
     right: max(var(--hero-pad), calc((100vw - var(--container)) / 2 + var(--hero-pad)));
   }
 }
@@ -1010,16 +995,11 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 }
 @media (min-width: 1440px) {
   .hero-banner__copy {
-    --hero-pad: clamp(92px, 5vw, 116px);
+    /* Flat 100px gutter mirrors the .container padding so the copy's
+       left rail aligns to the same grid edge on every screen ≥1440. */
+    --hero-pad: 100px;
     margin-left: max(var(--hero-pad), calc((100vw - var(--container)) / 2 + var(--hero-pad)));
     max-width: 1100px;
-  }
-}
-@media (min-width: 1920px) {
-  .hero-banner__copy {
-    --hero-pad: clamp(92px, 5vw, 140px);
-    margin-left: max(var(--hero-pad), calc((100vw - var(--container)) / 2 + var(--hero-pad)));
-    max-width: 1280px;
   }
 }
 
