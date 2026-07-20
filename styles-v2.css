@@ -948,13 +948,17 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 @media (min-width: 1440px) {
   .hero-banner__stage {
     --hero-pad: clamp(92px, 5vw, 116px);
-    right: max(var(--hero-pad), calc((100vw - var(--container)) / 4 + var(--hero-pad)));
+    /* Divide by 2 so the stage's right edge aligns exactly with
+       the .container's right padding (auto-margin/2 + padding).
+       (The copy uses /4 for artistic offset — the stage needs
+       true container-edge alignment.) */
+    right: max(var(--hero-pad), calc((100vw - var(--container)) / 2 + var(--hero-pad)));
   }
 }
 @media (min-width: 1920px) {
   .hero-banner__stage {
     --hero-pad: clamp(92px, 5vw, 140px);
-    right: max(var(--hero-pad), calc((100vw - var(--container)) / 4 + var(--hero-pad)));
+    right: max(var(--hero-pad), calc((100vw - var(--container)) / 2 + var(--hero-pad)));
   }
 }
 
