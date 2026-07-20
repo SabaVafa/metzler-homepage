@@ -560,7 +560,10 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .header__search {
     grid-column: auto !important;
     order: 0 !important;
-    max-width: 846px !important;
+    /* Match the base rule's dynamic width so the bar grows with the
+       viewport instead of staying pinned to its 846px floor — the
+       !important here previously froze it at 846px on every desktop. */
+    max-width: clamp(846px, 70vw, 1600px) !important;
     padding-bottom: 0 !important;
   }
 
