@@ -933,12 +933,29 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   top: 0;
   bottom: 0;
   left: 35%;
-  right: 0;
+  /* Right edge aligns with the .container's right padding at every
+     breakpoint — same formula as .hero-banner__copy's margin-left,
+     mirrored. Keeps the device image within the overall layout
+     grid instead of bleeding to the viewport edge. */
+  --hero-pad: clamp(var(--sp-6), 4vw, 56px);
+  right: max(var(--hero-pad), calc((100vw - var(--container)) / 2 + var(--hero-pad)));
   z-index: 1;
   pointer-events: none;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+}
+@media (min-width: 1440px) {
+  .hero-banner__stage {
+    --hero-pad: clamp(92px, 5vw, 116px);
+    right: max(var(--hero-pad), calc((100vw - var(--container)) / 4 + var(--hero-pad)));
+  }
+}
+@media (min-width: 1920px) {
+  .hero-banner__stage {
+    --hero-pad: clamp(92px, 5vw, 140px);
+    right: max(var(--hero-pad), calc((100vw - var(--container)) / 4 + var(--hero-pad)));
+  }
 }
 
 .hero-banner__poster {
@@ -1089,13 +1106,14 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .hero-banner__chips { margin-top: var(--sp-6); }
   .hero-banner__body { margin-top: 28px; }
   .hero-banner__ctas { margin-top: var(--sp-10); }
-  .hero-banner__stage { right: 32px; }
+  /* .hero-banner__stage right is set by the container-aligned rule
+     in the @media (min-width: 1440px) block above (near .hero-banner__stage). */
 }
 @media (min-width: 1920px) {
   .hero-banner__chips { margin-top: 28px; }
   .hero-banner__body { margin-top: var(--sp-8); }
   .hero-banner__ctas { margin-top: var(--sp-12); }
-  .hero-banner__stage { left: 50%; right: 48px; }
+  .hero-banner__stage { left: 50%; }
 }
 
 /* Tablet: hero stage shifts further right to avoid copy collision,
