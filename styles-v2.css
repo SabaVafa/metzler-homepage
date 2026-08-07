@@ -727,134 +727,246 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 /* ============================================================
    3. Trust Bar
    ============================================================ */
+/* Timeline of awards & proof — flip-card badges (ported from About us).
+   Desktop: 7-badge row. Tablet/mobile: swipeable rail with arrows. */
 .trustbar {
   background: var(--paper-white);
-  /* Symmetric 48/48 padding-block. */
-  padding-block: var(--sp-12);
+  /* padding-block inherits .section's var(--section-y) so the trust bar
+     breathes at the same rhythm as every other content section. */
+}
+.trustbar::before { display: none; content: none; }
+.trustbar__head {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto clamp(32px, 4vw, 48px);
+}
+.trustbar__rail {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: clamp(8px, 1vw, 16px);
   position: relative;
 }
-.trustbar::before {
+.trustbar__rail::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 96%;
-  max-width: var(--container);
+  top: 56px;
+  left: 6%;
+  right: 6%;
   height: 1px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    var(--graphite-300) 12%,
-    var(--graphite-300) 88%,
-    transparent 100%);
+  background: var(--graphite-300);
+  z-index: 0;
 }
-
-.trustbar__inner {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  align-items: stretch;
-  gap: 0;
-}
-
-.trust {
+.trustbar__item {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: var(--sp-3);
-  padding-inline: 0;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  padding: 0 clamp(4px, 0.6vw, 10px);
+  cursor: default;
+  outline: none;
 }
-/* Hairline separators between items */
-.trust + .trust::before {
-  content: "";
+.trustbar__icon {
+  position: relative;
+  z-index: 2;
+  width: 112px;
+  height: 112px;
+  perspective: 1000px;
+  background: transparent;
+  border: 0;
+}
+.trustbar__face {
   position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1px;
-  height: 48px;
-  background: linear-gradient(180deg,
-    transparent 0%,
-    var(--graphite-300) 30%,
-    var(--graphite-300) 70%,
-    transparent 100%);
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--white);
+  border: 1px solid var(--graphite-300);
+  border-radius: var(--r-l);
+  box-shadow: 0 6px 22px rgba(0,0,0,0.05);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform 600ms cubic-bezier(.2, .7, .2, 1), box-shadow 320ms ease, border-color 320ms ease;
 }
-
-/* Premium tile frame — uniform 96×96 surface for every badge.
-   Inner padding clamps every badge to the same visual height so the
-   five icons read as a coherent, evenly-weighted set. On hover the
-   badge enlarges generously so the small text/marks become readable
-   without leaving the trust bar. */
-/* Refined "stage" tile — soft vertical gradient surface, inset
-   highlight at the top, and an integrated hairline (inset stroke
-   instead of an outer border) so the tile and badge read as one
-   continuous, premium object rather than separate layers. */
-.trust__icon {
-  width: 72px;
-  height: 72px;
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  background: linear-gradient(180deg, #ffffff 0%, #f7f8fb 100%);
-  border: none;
-  border-radius: 16px;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    inset 0 0 0 1px rgba(218, 218, 218, 0.55),
-    0 1px 2px rgba(26, 23, 27, 0.03),
-    0 12px 28px rgba(26, 23, 27, 0.06);
-  transition:
-    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  overflow: hidden;
+.trustbar__face--front { z-index: 2; transform: rotateY(0deg); }
+.trustbar__face--back {
+  z-index: 1;
+  transform: rotateY(180deg);
+  background: var(--white);
+  border: 1px solid var(--teal);
+  color: var(--schwarz);
+  padding: 14px 12px;
+  text-align: center;
+  gap: 4px;
 }
-.trust__icon.trust__icon--ntv img { max-width: 75%; max-height: 75%; }
-.trust__icon.trust__icon--customers img { max-width: 84%; max-height: 84%; }
-.trust__icon img {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 2px 4px rgba(26, 23, 27, 0.08));
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  transform-origin: center;
-}
-/* Hover — tile lifts; inner stroke shifts to a subtle teal cue
-   while the shadow deepens so the badge feels lifted off its stage */
-.trust:hover { z-index: 10; }
-.trust:hover .trust__icon {
-  transform: translateY(-3px);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 1),
-    inset 0 0 0 1px rgba(1, 82, 83, 0.22),
-    0 2px 4px rgba(26, 23, 27, 0.04),
-    0 24px 48px rgba(26, 23, 27, 0.12);
-}
-
-.trust__title {
+.trustbar__face--back strong {
+  display: block;
   font-size: var(--text-body-sm);
   font-weight: 700;
-  color: var(--schwarz);
-  line-height: 1.25;
-  letter-spacing: -0.01em;
-  max-width: 100%;
-  min-height: 2.5em;
-  overflow-wrap: break-word;
+  line-height: 1.15;
+  color: var(--teal);
+  letter-spacing: -0.005em;
 }
-.trust__sub {
-  font-size: var(--text-caption);
-  color: rgba(0, 0, 0, 0.55);
-  line-height: 1.4;
-  letter-spacing: 0.01em;
-  max-width: 100%;
-  min-height: 2.8em;
+.trustbar__face--back span {
+  display: block;
+  font-size: 11px;
   font-weight: 500;
-  overflow-wrap: break-word;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  color: var(--text-muted);
+}
+.trustbar__cue-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--teal);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  opacity: 0;
+  transform: translateY(-2px);
+  pointer-events: none;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+.trustbar__cue-text svg { width: 12px; height: 12px; }
+.trustbar__item.is-flipped .trustbar__cue-text,
+.trustbar__item:hover .trustbar__cue-text,
+.trustbar__item:focus-within .trustbar__cue-text,
+.trustbar__item:focus-visible .trustbar__cue-text {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.trustbar__face--front img,
+.trustbar__face--front svg {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  display: block;
+}
+.trustbar__item:nth-child(1) .trustbar__face--front img { width: 62px; height: 62px; }
+.trustbar__item:nth-child(2) .trustbar__face--front img { width: 86px; height: 86px; }
+.trustbar__item:nth-child(3) .trustbar__face--front img { width: 64px; height: 64px; }
+.trustbar__item:nth-child(4) .trustbar__face--front img { width: 86px; height: 86px; }
+.trustbar__item:nth-child(5) .trustbar__face--front img { width: 94px; height: 94px; }
+.trustbar__item:nth-child(6) .trustbar__face--front img { width: 94px; height: 94px; }
+.trustbar__item:nth-child(7) .trustbar__face--front img { width: 70px; height: 70px; }
+.trustbar__node { display: none; }
+.trustbar__title {
+  margin: clamp(20px, 2vw, 28px) 0 4px;
+  font-size: var(--text-body-sm);
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  color: var(--schwarz);
+  line-height: 1.3;
+}
+.trustbar__sub {
+  margin: 0;
+  font-size: var(--text-caption);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.trustbar__item--link { cursor: pointer; }
+
+/* Strip viewport + scroll arrows */
+.strip-viewport { position: relative; }
+.strip-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-m);
+  border: 1px solid var(--graphite-300);
+  background: var(--white);
+  color: var(--schwarz);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, opacity 0.22s ease;
+}
+.strip-arrow svg { width: 24px; height: 24px; stroke-width: 1.5; }
+.strip-arrow--prev { left: 8px; }
+.strip-arrow--prev svg { transform: rotate(180deg); }
+.strip-arrow--next { right: 8px; }
+@media (hover: hover) {
+  .strip-arrow:hover { background: var(--teal); color: var(--white); border-color: var(--teal); }
+}
+.strip-arrow:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(1,82,83,0.10); }
+.strip-arrow.is-hidden { opacity: 0; pointer-events: none; }
+@media (min-width: 1280px) { .strip-arrow { display: none; } }
+
+/* Tablet/mobile: viewport breaks to the screen edge; arrows pull back to the page margin */
+@media (max-width: 1279px) {
+  .trustbar__viewport { margin-inline: calc(-1 * clamp(var(--sp-6), 4vw, 56px)); }
+  .trustbar__viewport .strip-arrow--prev { left: clamp(var(--sp-6), 4vw, 56px); }
+  .trustbar__viewport .strip-arrow--next { right: clamp(var(--sp-6), 4vw, 56px); }
+}
+/* Tablet/mobile: rail becomes a swipeable single-row scroller */
+@media (max-width: 1279px) {
+  .trustbar__rail {
+    display: flex;
+    flex-wrap: nowrap;
+    grid-template-columns: none;
+    gap: var(--sp-6);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: var(--sp-2);
+    margin-bottom: calc(-1 * var(--sp-2));
+    padding-inline: clamp(var(--sp-6), 4vw, 56px);
+  }
+  .trustbar__rail::-webkit-scrollbar { display: none; }
+  .trustbar__rail::before { display: none; }
+  .trustbar__item {
+    flex: 0 0 clamp(150px, 30%, 160px);
+    scroll-snap-align: start;
+  }
+  .trustbar__sub { white-space: normal; }
+}
+@media (min-width: 768px) and (max-width: 1279px) {
+  .trustbar__rail { scroll-padding-inline: clamp(var(--sp-6), 4vw, 56px); }
+}
+/* Flip interaction */
+.trustbar__item:hover,
+.trustbar__item:focus-visible { z-index: 5; }
+@media (hover: hover) {
+  .trustbar__item:hover .trustbar__face--front { transform: rotateY(-180deg); }
+  .trustbar__item:hover .trustbar__face--back { transform: rotateY(0deg); box-shadow: 0 14px 32px rgba(0,0,0,0.18); }
+}
+.trustbar__item:focus-visible .trustbar__face--front,
+.trustbar__item.is-hinting .trustbar__face--front,
+.trustbar__item.is-flipped .trustbar__face--front { transform: rotateY(-180deg); }
+.trustbar__item:focus-visible .trustbar__face--back,
+.trustbar__item.is-hinting .trustbar__face--back,
+.trustbar__item.is-flipped .trustbar__face--back { transform: rotateY(0deg); box-shadow: 0 14px 32px rgba(0,0,0,0.18); }
+@media (max-width: 767px) {
+  .trustbar__rail { gap: var(--sp-2); }
+  .trustbar__item { flex: 0 0 44%; min-width: 150px; padding-inline: 2px; }
+  .trustbar__item:active .trustbar__face--front { transform: rotateY(-180deg); }
+  .trustbar__item:active .trustbar__face--back { transform: rotateY(0deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .trustbar__face { transition: none !important; }
+  .trustbar__item:hover .trustbar__face--front,
+  .trustbar__item:focus-visible .trustbar__face--front { transform: none; }
+  .trustbar__item:hover .trustbar__face--back,
+  .trustbar__item:focus-visible .trustbar__face--back { transform: rotateY(180deg); }
 }
 
 /* ============================================================
@@ -1908,8 +2020,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 .faq__a {
   padding: 0 var(--sp-5) var(--sp-6);
   color: rgba(0, 0, 0, 0.72);
-  line-height: 1.7;
-  max-width: 65ch;
+  line-height: 1.6;
   font-size: var(--text-body);
 }
 .faq__support {
@@ -1935,6 +2046,9 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 }
 .faq__support .btn { margin-top: var(--sp-6); width: 100%; justify-content: center; }
 .faq__support .btn--primary:hover { background: var(--teal-600); }
+/* Inline links inside FAQ answers */
+.faq__a a { color: var(--teal); text-decoration: underline; }
+.faq__a a:hover { color: var(--teal-600); }
 .faq__phone {
   margin-top: var(--sp-6);
   padding: var(--sp-5);
@@ -2295,14 +2409,11 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
    Responsive
    ============================================================ */
 @media (max-width: 1100px) {
-  .trustbar__inner { grid-template-columns: repeat(3, 1fr); row-gap: var(--sp-6); }
-  .trustbar__inner > :nth-child(n) { grid-column: span 1; }
   .footer__top { grid-template-columns: 1.2fr 1fr 1fr; }
   .footer__top > *:nth-child(4), .footer__top > *:nth-child(5) { grid-column: span 1; }
 }
 
 @media (max-width: 720px) {
-  .trustbar__inner { grid-template-columns: repeat(2, 1fr); }
   .awards__ctas { justify-content: center; text-align: center; }
   .awards__ctas > * { margin-inline: auto; }
   /* Reviews header — stack title + rating vertically on mobile */
@@ -2344,68 +2455,6 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   }
   .reviews__tab-logo { width: 16px; height: 16px; }
   .reviews__tab-count { font-size: 11px; }
-}
-
-/* ============================================================
-   TRUST BAR — Mobile + Tablet Horizontal Carousel (≤1023px)
-   Single-row swipeable rail with peek + scroll-snap. Same
-   visual treatment across mobile and tablet — they share the
-   same need (cards don't fit in a clean grid sub-desktop).
-   ============================================================ */
-@media (max-width: 1023px) {
-  .trustbar { padding-block: var(--sp-6); }
-
-  .trustbar__inner {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden;
-    gap: 12px;
-    /* Override .container's inline padding so the centered card itself
-       is the only padding source — left and right of the first badge
-       end up visually equal. */
-    padding-block: 0;
-    padding-inline: 0;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: 0;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;   /* Firefox */
-    grid-template-columns: none;
-    grid-template-rows: none;
-  }
-  .trustbar__inner::-webkit-scrollbar { display: none; } /* Chrome/Safari */
-
-  .trust {
-    flex: 0 0 36%;          /* tighter cards → less whitespace around icon */
-    min-width: 130px;
-    max-width: 180px;
-    scroll-snap-align: center;
-    padding: 0;
-    gap: 10px;
-  }
-
-  /* Re-center the desktop hairline divider inside the carousel gap */
-  .trust + .trust::before { left: -6px; height: 40px; }
-
-  /* Preserve desktop tile interface — just scale it down for mobile */
-  .trust__icon {
-    width: 60px;
-    height: 60px;
-    padding: 8px;
-    border-radius: 14px;
-  }
-
-  /* Tighten typography for the carousel cards */
-  .trust__title {
-    font-size: 12px;
-    min-height: 0;
-    line-height: 1.25;
-  }
-  .trust__sub {
-    font-size: 10px;
-    min-height: 0;
-    line-height: 1.35;
-  }
 }
 
 @media (max-width: 900px) {
@@ -2723,77 +2772,6 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
     bottom: calc(14% - 16px);
     right: clamp(132px, calc(16vw - 8px), 212px);
   }
-
-  /* ── Trust bar carousel ──
-     Card width chosen so 4 fit per viewport at 768 with the 5th
-     peeking — natural peek from overflow. */
-  .trustbar { position: relative; }
-  .trust { max-width: 220px; flex: 0 0 24%; padding-inline: var(--sp-5); }
-  /* Tablet cards have more room than mobile — bump the typography
-     up one notch from the mobile carousel's 12/10 to read better. */
-  .trust__title { font-size: 13px; }
-  .trust__sub { font-size: 11px; }
-  .trustbar__inner { scroll-behavior: smooth; }
-
-  /* Edge fades — left & right. Visual signal that there's more
-     content beyond the visible band. JS toggles .is-start and
-     .is-end on .trustbar to fade out the corresponding gradient
-     when the user reaches that edge.
-
-     NOTE: the existing .trustbar::before (top hairline divider)
-     sets transform/height/max-width — must reset them here so
-     the fade renders full-height at the correct edge. */
-  .trustbar::before,
-  .trustbar::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    height: auto;
-    max-width: none;
-    transform: none;
-    width: 96px;
-    pointer-events: none;
-    z-index: 4;
-    transition: opacity 0.2s ease;
-  }
-  .trustbar::before {
-    left: 0;
-    right: auto;
-    background: linear-gradient(to left, rgba(245, 246, 250, 0) 0%, rgba(245, 246, 250, 0.95) 70%, rgba(245, 246, 250, 1) 100%);
-  }
-  .trustbar::after {
-    right: 0;
-    left: auto;
-    background: linear-gradient(to right, rgba(245, 246, 250, 0) 0%, rgba(245, 246, 250, 0.95) 70%, rgba(245, 246, 250, 1) 100%);
-  }
-  .trustbar.is-start::before { opacity: 0; }
-  .trustbar.is-end::after { opacity: 0; }
-
-  /* Right-edge scroll button — appears when content is scrollable
-     and the user has not yet reached the end. JS toggles [hidden]. */
-  .trustbar__scroll {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 5;
-    width: 40px;
-    height: 40px;
-    border-radius: var(--r-m);
-    background: var(--white);
-    color: var(--teal);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12), 0 0 0 1px var(--graphite-300);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: transform 0.18s ease, background 0.18s ease;
-  }
-  .trustbar__scroll--prev { left: 12px; }
-  .trustbar__scroll--next { right: 12px; }
-  .trustbar__scroll:hover { background: var(--paper-white); transform: translateY(-50%) scale(1.06); }
-  .trustbar__scroll svg { width: 28px; height: 28px; }
-  .trustbar__scroll[hidden] { display: none; }
 
   /* ── Cats (Markenqualität) ──
      Extend the mobile bento (currently capped at ≤900) up to
