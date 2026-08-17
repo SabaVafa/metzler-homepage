@@ -16,3 +16,7 @@ dist/
 
 # Claude Code tooling state
 .claude/
+
+# Black Friday variant — local only, never publish to GitHub
+black-friday.html
+black-friday.css
