@@ -1304,7 +1304,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   justify-content: space-between;
   align-items: end;
   gap: var(--sp-8);
-  margin-bottom: var(--sp-8);
+  margin-bottom: var(--sp-12);
 }
 /* Asymmetric grid based on user reference layout:
    4 columns × 4 rows.
@@ -2461,9 +2461,8 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   :root { --section-y: var(--sp-16); }
   .topbar__claims li:nth-child(n+3) { display: none; }
 
-  /* 48px top/bottom — matches the other mobile sections' rhythm. */
-  .cats { padding-block: var(--sp-12); }
-  .cats__head { margin-bottom: var(--sp-8); }
+  /* cats inherits --section-y like every other section (no override) */
+  .cats__head { margin-bottom: var(--sp-12); }
   .header__main { grid-template-columns: auto 1fr auto; gap: var(--sp-3); }
   .header__search { grid-column: 1 / -1; order: 99; max-width: none; padding-bottom: var(--sp-3); }
   .header__main { height: auto; padding-block: var(--sp-3); }
@@ -2777,8 +2776,7 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
      Extend the mobile bento (currently capped at ≤900) up to
      1023 so the entire tablet range gets the proven 3-module
      stacked layout instead of the cramped desktop 11-tile grid. */
-  .cats { padding-block: var(--sp-12); }
-  .cats__head { margin-bottom: var(--sp-8); }
+  .cats__head { margin-bottom: var(--sp-12); }
   .cats__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
