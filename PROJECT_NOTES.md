@@ -17,4 +17,4 @@ Open `index.html` directly in any modern browser. No server required.
 
 ## Contact
 
-s.vafakhah@metzlergmbh.de
+Metzler GmbH — via [Kundensupport](https://edelstahl-tuerklingel.de)

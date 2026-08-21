@@ -226,8 +226,8 @@ These are deliberately **not** implemented — they require product decisions, n
 
 ## 12. Contact
 
-- **Original brief:** Metzler Homepage Redesign — premium UX/UI/CRO redesign matching `metzlerdesignsystem.netlify.app`
-- **User contact:** s.vafakhah@metzlergmbh.de
+- **Original brief:** Metzler Homepage Redesign — premium UX/UI/CRO redesign
+- **Contact:** Metzler GmbH — via the public [Kundensupport](https://edelstahl-tuerklingel.de)
 
 ---
 
