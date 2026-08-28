@@ -1,0 +1,6 @@
+# Prototype site. De-indexing is handled by <meta name="robots" content="noindex">
+# in the HTML — NOT by disallowing here. Crawlers must stay allowed so they can
+# fetch the page and see that noindex; this also keeps link-preview scrapers
+# (Microsoft Teams, LinkedIn, Slack, X) working.
+User-agent: *
+Allow: /
