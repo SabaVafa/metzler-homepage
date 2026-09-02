@@ -1902,7 +1902,9 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
    ============================================================ */
 .about-bridge__grid {
   display: grid;
-  grid-template-columns: 1fr 1.3fr;
+  /* match the Awards grid (1.3fr 1fr) so this section's text column lines up
+     with the Awards right column above it */
+  grid-template-columns: 1.3fr 1fr;
   gap: var(--sp-12);
   align-items: center;
 }
@@ -1935,9 +1937,13 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   gap: var(--sp-5);
   flex-wrap: wrap;
 }
-/* Buttons size to their label with consistent side padding (sp-8),
-   matching the Awards CTAs — no fixed width. */
-.about-bridge__ctas .btn { padding-inline: var(--sp-8); }
+/* Buttons split the full width of the text column (equal halves). */
+.about-bridge__ctas .btn {
+  flex: 1 1 0;
+  min-width: 0;
+  justify-content: center;
+  padding-inline: var(--sp-8);
+}
 .about-bridge__break { display: none; }
 @media (min-width: 768px) {
   .about-bridge__break { display: initial; }
